@@ -6,7 +6,7 @@
  *   - Skip non-GET, skip cross-origin
  */
 
-const VERSION = 'nps-2026-05-07-v2';
+const VERSION = 'nps-2026-05-07-v3';
 const STATIC_CACHE = `static-${VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${VERSION}`;
 const HTML_CACHE = `html-${VERSION}`;
