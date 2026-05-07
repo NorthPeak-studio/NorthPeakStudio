@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="pl" data-lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c1410" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f4ede0" media="(prefers-color-scheme: light)" />
+
+  <!-- PWA — installable as app on iOS/Android/desktop -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="application-name" content="NorthPeak Studio" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NorthPeak" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="msapplication-TileColor" content="#0c1410" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/pwa/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/pwa/favicon-16.png" />
+  <link rel="mask-icon" href="assets/logo.svg" color="#ffb892" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>NorthPeak Studio — Strony i aplikacje, które się bronią</title>
+  <meta name="description" content="Niezależne studio produktowe. Projektujemy i budujemy aplikacje webowe, mobilne, MVP, branding i landing page — z dbałością o szybkość, dostępność i detal." />
+
+  <!-- Canonical + locale -->
+  <link rel="canonical" href="https://north-peak-studio.com/" />
+  <link rel="alternate" hreflang="pl" href="https://north-peak-studio.com/" />
+  <link rel="alternate" hreflang="en" href="https://north-peak-studio.com/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://north-peak-studio.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="NorthPeak Studio" />
+  <meta property="og:url" content="https://north-peak-studio.com/" />
+  <meta property="og:title" content="NorthPeak Studio — Strony i aplikacje, które się bronią" />
+  <meta property="og:description" content="Niezależne studio produktowe. Projektujemy i budujemy aplikacje webowe, mobilne, MVP, branding i landing page — z dbałością o szybkość, dostępność i detal." />
+  <meta property="og:image" content="https://north-peak-studio.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="NorthPeak Studio — strona startowa z górskim krajobrazem i logo NORTHPEAK STUDIO" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NorthPeak Studio — Strony i aplikacje, które się bronią" />
+  <meta name="twitter:description" content="Niezależne studio produktowe. Web · Mobile · Branding · MVP — z dbałością o szybkość, dostępność i detal." />
+  <meta name="twitter:image" content="https://north-peak-studio.com/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="NorthPeak Studio — landing" />
+
+  <!-- Favicons + Apple Touch -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/pwa/apple-touch-icon.png" />
+  <link rel="mask-icon" href="assets/logo.svg" color="#ff6b2b" />
+
+  <!-- Robots / SEO -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="NorthPeak Studio" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preload" as="image" href="assets/sunset-peak.avif" type="image/avif" fetchpriority="high" />
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NorthPeak Studio",
+    "url": "https://north-peak-studio.com/",
+    "logo": "https://north-peak-studio.com/assets/og-image.png",
+    "image": "https://north-peak-studio.com/assets/og-image.png",
+    "description": "Niezależne studio produktowe. Aplikacje webowe, mobilne, MVP, branding i landing page.",
+    "sameAs": [
+      "https://linkedin.com/company/northpeak-studio"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "contact@north-peak-studio.com",
+      "contactType": "sales"
+    }
+  }
+  </script>
+  <!-- THEME — apply before paint to prevent FOUC -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('np-theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = saved || (prefersLight ? 'light' : 'dark');
+        if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <!-- Back-to-top floating button — appears after scrolling past hero -->
+  <a href="#top" class="backToTop" id="backToTop" aria-label="Wróć na górę" data-cursor="UP">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </a>
+
+  <!-- PWA install button — appears on engaged scroll if installable -->
+  <button class="pwaInstall" id="pwaInstallBtn" type="button" aria-label="Zainstaluj NorthPeak jako aplikację" data-cursor="INSTALL">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/>
+    </svg>
+    <span class="pwaInstall__label" data-i18n="pwa.install">Zainstaluj</span>
+  </button>
+  <!-- Reveal flash overlay — fires when intro completes, white burst → fade -->
+  <div class="revealFlash" id="revealFlash" aria-hidden="true"></div>
+
+  <!-- Skip link — visible on focus only, helps keyboard users jump nav -->
+  <a class="skip-link" href="#top">Przejdź do treści</a>
+
+  <!-- ============================================================ -->
+  <!-- LOADER                                                       -->
+  <!-- ============================================================ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__bg"></div>
+    <div class="loader__noise"></div>
+
+    <!-- Center stack: mark + wordmark with letter-spacing reveal -->
+    <div class="loader__content">
+      <svg class="loader__mark" viewBox="0 0 100 60" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path class="loader__path" d="M5 55 L30 25 L45 40 L60 15 L75 35 L95 5" stroke="currentColor" stroke-width="2.5"/>
+      </svg>
+      <h1 class="loader__word">NORTHPEAK</h1>
+      <div class="loader__sub">
+        <span class="loader__subRule"></span>
+        <span class="loader__subText">STUDIO</span>
+        <span class="loader__subRule"></span>
+      </div>
+      <div class="loader__progressRow" aria-hidden="true">
+        <span class="loader__count" id="loaderCount">0</span>
+        <span class="loader__bar"><span class="loader__barFill" id="loaderBar"></span></span>
+        <span class="loader__pct">%</span>
+      </div>
+    </div>
+
+    <!-- Horizon catalyst — the line that splits the curtain -->
+    <div class="loader__horizon" aria-hidden="true"><span></span></div>
+
+    <!-- Particle burst canvas — fires when horizon hits (orange/cyan embers) -->
+    <canvas class="loader__particles" id="loaderParticles" aria-hidden="true"></canvas>
+
+    <!-- Two halves of the screen that split open from the horizon line -->
+    <div class="loader__curtain loader__curtain--top" aria-hidden="true"></div>
+    <div class="loader__curtain loader__curtain--bot" aria-hidden="true"></div>
+
+    <!-- CINEMA LETTERBOX — pulls apart at the end like an IMAX frame -->
+    <div class="loader__letterbox loader__letterbox--top" aria-hidden="true"></div>
+    <div class="loader__letterbox loader__letterbox--bot" aria-hidden="true"></div>
+
+    <!-- ACT II — cinematic manifesto, types in slowly after the wordmark -->
+    <div class="loader__act" id="loaderAct" aria-hidden="true">
+      <div class="loader__actMeta">
+        <span class="loader__actSlate">NPS / 2026 — REEL 01</span>
+        <span class="loader__actDot"></span>
+        <span class="loader__actLoc">PL · WAW</span>
+      </div>
+      <p class="loader__actLine loader__actLine--1" data-i18n="loader.act.l1">Małe studio.</p>
+      <p class="loader__actLine loader__actLine--2" data-i18n="loader.act.l2">Każdy detal.</p>
+      <p class="loader__actLine loader__actLine--3" data-i18n="loader.act.l3">Każda decyzja.</p>
+      <p class="loader__actLine loader__actLine--4" data-i18n="loader.act.l4">Robi różnicę.</p>
+    </div>
+  </div>
+
+  <!-- aurora gradient overlay (fixed, behind everything) -->
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- BAJKOWY AMBIENT — floating sparkles, soft drift, dream-feel -->
+  <div class="fairyParticles" aria-hidden="true">
+    <span class="fairyParticles__dot fairyParticles__dot--1"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--2"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--3"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--4"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--5"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--6"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--7"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--8"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--9"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--10"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--11"></span>
+    <span class="fairyParticles__dot fairyParticles__dot--12"></span>
+  </div>
+
+  <!-- cinematic letterbox bars (toggle via body.is-pinned during pinned scenes) -->
+  <div class="cinema-bars cinema-bars--top" aria-hidden="true"></div>
+  <div class="cinema-bars cinema-bars--bot" aria-hidden="true"></div>
+
+  <!-- SVG defs: displacement + goo filters reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="displaceWarp" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.022" numOctaves="2" seed="3" result="noise">
+          <animate attributeName="baseFrequency" dur="22s" values="0.012 0.022; 0.018 0.014; 0.012 0.022" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="goo" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10" result="goo"/>
+        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ============================================================ -->
+  <!-- GLOBAL FX LAYERS                                             -->
+  <!-- ============================================================ -->
+  <canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============================================================ -->
+  <!-- SCROLL PROGRESS                                              -->
+  <!-- ============================================================ -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress__bar" id="scrollProgress"></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CUSTOM CURSOR                                                -->
+  <!-- ============================================================ -->
+  <div class="cursor" id="cursor">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- NAV                                                          -->
+  <!-- ============================================================ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo" data-magnetic>
+      <svg viewBox="0 0 100 60" class="nav__logoMark" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 50 L30 18 L45 32 L60 8 L78 28 L95 6"/>
+        <path d="M55 38 L65 50 L75 38" stroke-width="2" opacity="0.6"/>
+      </svg>
+      <span class="nav__logoText">
+        <strong>NORTHPEAK</strong>
+        <em data-i18n="nav.studio">STUDIO</em>
+      </span>
+    </a>
+    <nav class="nav__links">
+      <a href="#services" data-magnetic data-i18n="nav.services" data-section="services">Usługi</a>
+      <a href="#process" data-magnetic data-i18n="nav.process" data-section="process">Proces</a>
+      <a href="#work" data-magnetic data-i18n="nav.work" data-section="work">Realizacje</a>
+      <a href="#stack" data-magnetic data-i18n="nav.stack" data-section="stack">Technologie</a>
+      <a href="#contact" data-magnetic data-i18n="nav.contact" data-section="contact">Kontakt</a>
+      <span class="nav__activeDot" id="navActiveDot" aria-hidden="true"></span>
+    </nav>
+    <div class="nav__right">
+      <button class="nav__cmdk" id="cmdkOpen" data-magnetic title="Open command palette (⌘K)" aria-label="Open command palette">
+        <span>⌘</span><span>K</span>
+      </button>
+      <button class="nav__audio" id="audioToggle" data-magnetic title="Toggle audio" aria-label="Toggle audio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9v6h4l5 4V5L9 9H5z"/><path class="audio-on" d="M16 7a5 5 0 010 10"/><path class="audio-off" d="M17 9l5 5M22 9l-5 5"/></svg>
+      </button>
+      <div class="nav__time" id="navTime" aria-hidden="true" title="Status studia">
+        <span class="nav__timeDot"></span>
+        <span class="nav__timeLoc" id="navStatusLabel">WAW</span>
+        <span class="nav__timeClock" id="navStatusValue">--:--</span>
+      </div>
+      <button class="lang" id="langSwitch" data-magnetic>
+        <span class="lang__pl">PL</span>
+        <span class="lang__divider">/</span>
+        <span class="lang__en">EN</span>
+        <span class="lang__pill"></span>
+      </button>
+      <button class="themeToggle" id="themeToggle" type="button" aria-label="Przełącz motyw (jasny/ciemny)" data-magnetic>
+        <svg class="themeToggle__icon themeToggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="themeToggle__icon themeToggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+      <a href="#contact" class="nav__cta" data-magnetic>
+        <span data-i18n="nav.cta">Zacznijmy</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ========================================================== -->
+    <!-- HERO                                                       -->
+    <!-- ========================================================== -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <canvas class="hero__shader" id="heroShader" aria-hidden="true"></canvas>
+        <video class="hero__video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" data-fallback>
+          <source src="assets/intro.mp4" type="video/mp4" />
+        </video>
+        <picture class="hero__layer hero__layer--sky" data-speed="0.05">
+          <source media="(max-width: 700px)" type="image/avif" srcset="assets/sunset-peak-m.avif" />
+          <source media="(max-width: 700px)" type="image/webp" srcset="assets/sunset-peak-m.webp" />
+          <source media="(max-width: 700px)" srcset="assets/sunset-peak-m.png" />
+          <source type="image/avif" srcset="assets/sunset-peak.avif" />
+          <source type="image/webp" srcset="assets/sunset-peak.webp" />
+          <img src="assets/sunset-peak.png" alt="" fetchpriority="high" decoding="async" />
+        </picture>
+        <picture class="hero__layer hero__layer--mid" data-speed="0.18">
+          <source media="(max-width: 700px)" type="image/avif" srcset="assets/sunset-peak-m.avif" />
+          <source media="(max-width: 700px)" type="image/webp" srcset="assets/sunset-peak-m.webp" />
+          <source media="(max-width: 700px)" srcset="assets/sunset-peak-m.png" />
+          <source type="image/avif" srcset="assets/sunset-peak.avif" />
+          <source type="image/webp" srcset="assets/sunset-peak.webp" />
+          <img src="assets/sunset-peak.png" alt="" decoding="async" />
+        </picture>
+        <div class="hero__veil"></div>
+      </div>
+
+      <!-- animated topographic peak that draws on scroll -->
+      <div class="hero__peak" aria-hidden="true">
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none">
+          <path d="M0 720 L160 660 L240 690 L380 540 L460 600 L560 480 L640 540 L760 360 L860 460 L960 320 L1100 480 L1240 380 L1340 460 L1460 360 L1600 480"
+                stroke="currentColor" stroke-width="1.5"/>
+          <path d="M0 800 L240 760 L420 700 L600 640 L780 600 L960 540 L1140 580 L1320 520 L1460 560 L1600 540"
+                stroke="currentColor" stroke-width="1" opacity="0.55"/>
+        </svg>
+      </div>
+
+      <div class="hero__topline">
+        <span class="ticker">
+          <span data-i18n="hero.ticker">● Studio na czas Twojego startu — aplikacje, web, branding, MVP — Sięgamy szczytów cyfrowego rzemiosła ●</span>
+          <span data-i18n="hero.ticker">● Studio na czas Twojego startu — aplikacje, web, branding, MVP — Sięgamy szczytów cyfrowego rzemiosła ●</span>
+        </span>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="line"><span data-char-split data-i18n="hero.line1">Sięgamy</span></span>
+          <span class="line"><em data-char-split data-i18n="hero.line2">szczytów</em></span>
+          <span class="line"><span data-char-split data-i18n="hero.line3">cyfrowego rzemiosła.</span></span>
+        </h1>
+
+        <p class="hero__lead" data-reveal data-i18n="hero.lead">
+          Twój produkt zasługuje na zespół, który traktuje go jak własny. Małe, niezależne studio — projektujemy i wdrażamy strony, aplikacje webowe i mobilne dla firm, które wymagają więcej niż „byle szybko".
+        </p>
+
+        <div class="hero__cta" data-reveal>
+          <a href="#contact" class="btn btn--primary" data-magnetic data-cursor="GO">
+            <span data-i18n="hero.ctaPrimary">Rozpocznij projekt</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn btn--ghost" data-magnetic data-cursor="MORE">
+            <span data-i18n="hero.ctaSecondary">Zobacz usługi</span>
+          </a>
+        </div>
+
+        <div class="hero__meta">
+          <div class="meta" data-reveal>
+            <strong>9+</strong>
+            <span data-i18n="hero.metaServices">obszarów kompetencji</span>
+          </div>
+          <div class="meta" data-reveal>
+            <strong>100%</strong>
+            <span data-i18n="hero.metaFocus">skupienia na detalu</span>
+          </div>
+          <div class="meta" data-reveal>
+            <strong>1</strong>
+            <span data-i18n="hero.metaTeam">zespół, jeden cel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__scroll">
+        <span data-i18n="hero.scroll">Scrolluj</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </div>
+
+      <div class="hero__refStamp" aria-hidden="true">
+        <span>PRJ-LANDING</span>
+        <i></i>
+        <span>v2026.05</span>
+        <i></i>
+        <span>NORTHPEAK STUDIO</span>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- IMPACT (stats with scramble)                               -->
+    <!-- ========================================================== -->
+    <section class="impact" id="impact" data-slide>
+      <div class="impact__inner">
+        <h2 class="impact__head" data-reveal-words>
+          <span data-i18n="impact.title1">Małe studio,</span>
+          <em data-i18n="impact.title2">duża dbałość.</em>
+        </h2>
+
+        <ol class="impact__rows">
+          <li class="impact__row" data-reveal>
+            <span class="impact__rowNum">01</span>
+            <span class="impact__rowVal"><b>2026</b></span>
+            <span class="impact__rowKey">
+              <span class="impact__rowLbl" data-i18n="impact.heroLbl">Rok startu</span>
+              <small data-i18n="impact.heroSub">studio działa produktowo od 2026 r.</small>
+            </span>
+          </li>
+          <li class="impact__row" data-reveal>
+            <span class="impact__rowNum">02</span>
+            <span class="impact__rowVal"><b data-scramble="2">0</b></span>
+            <span class="impact__rowKey">
+              <span class="impact__rowLbl" data-i18n="impact.l1">Aktywne projekty</span>
+              <small data-i18n="impact.l1.sub">równolegle, z pełnym zaangażowaniem.</small>
+            </span>
+          </li>
+          <li class="impact__row" data-reveal>
+            <span class="impact__rowNum">03</span>
+            <span class="impact__rowVal"><b>4–8</b><i>tyg.</i></span>
+            <span class="impact__rowKey">
+              <span class="impact__rowLbl" data-i18n="impact.l2">Średnie wdrożenie</span>
+              <small data-i18n="impact.l2.sub">w zależności od skali projektu.</small>
+            </span>
+          </li>
+          <li class="impact__row" data-reveal>
+            <span class="impact__rowNum">04</span>
+            <span class="impact__rowVal"><b>&lt;12</b><i>h</i></span>
+            <span class="impact__rowKey">
+              <span class="impact__rowLbl" data-i18n="impact.l4">Odpowiedź na e-mail</span>
+              <small data-i18n="impact.l4.sub">w dni robocze. Zwykle szybciej.</small>
+            </span>
+          </li>
+        </ol>
+
+        <p class="impact__foot" data-reveal data-i18n="impact.foot">Kilka jednoczesnych projektów, dwie iteracje na tydzień, jasny ślad decyzyjny. Tak działa rzemiosło.</p>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/01</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- MANIFEST                                                   -->
+    <!-- ========================================================== -->
+    <section class="manifest" id="manifest">
+      <div class="manifest__inner">
+        <div class="manifest__label" data-reveal>
+          <i></i>
+          <span data-i18n="manifest.label">Manifest</span>
+        </div>
+        <h2 class="manifest__text" data-reveal-words>
+          <span data-i18n="manifest.body">Tworzymy produkty, które działają jak należy — szybkie, czytelne i piękne. Łączymy rzemiosło inżynieryjne z designem, który nie pyta o pozwolenie. Każdy projekt zaczynamy od zrozumienia celu, kończymy na sukcesie, jaki ma przynieść.</span>
+        </h2>
+        <div class="manifest__signature" data-reveal>
+          <span data-i18n="manifest.sign">— Zespół NorthPeak</span>
+        </div>
+      </div>
+      <picture class="manifest__bg" data-parallax="0.25">
+        <source media="(max-width: 700px)" type="image/avif" srcset="assets/clouds-sea-m.avif" />
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/clouds-sea-m.webp" />
+        <source media="(max-width: 700px)" srcset="assets/clouds-sea-m.png" />
+        <source type="image/avif" srcset="assets/clouds-sea.avif" />
+        <source type="image/webp" srcset="assets/clouds-sea.webp" />
+        <img src="assets/clouds-sea.png" alt="" loading="lazy" decoding="async" />
+      </picture>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/02</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- STUDIO — about / principles / anti-services                -->
+    <!-- ========================================================== -->
+    <section class="studio" id="studio">
+      <video class="studio__bgVideo" autoplay loop muted playsinline preload="metadata" data-fallback>
+        <source src="assets/studio.mp4" type="video/mp4" />
+      </video>
+      <header class="section-head">
+        <div class="section-head__label" data-reveal>
+          <i></i><span data-i18n="studio.label">01 — Studio</span>
+        </div>
+        <p class="section-head__lead" data-reveal data-i18n="studio.lead">
+          Nie jesteśmy agencją. Nie jesteśmy też freelancerami. Jesteśmy niezależnym studiem produktowym — pracujemy z kilkoma klientami jednocześnie, każdy projekt prowadzimy od briefu do launchu i dalej.
+        </p>
+      </header>
+
+      <div class="studio__inner">
+        <div class="studio__principles">
+          <div class="studio__sublabel">
+            <span class="studio__no">04</span>
+            <span data-i18n="studio.principles.label">Czego trzymamy się na każdym projekcie</span>
+          </div>
+          <ol class="studio__list">
+            <li data-reveal>
+              <span class="studio__num">P-01</span>
+              <h3 data-i18n="studio.p1.title">Decyzja zamiast opcji</h3>
+              <p data-i18n="studio.p1.body">Nie wysyłamy trzech wariantów do wyboru. Wysyłamy ten jeden, który naszym zdaniem zadziała — i bronimy go.</p>
+            </li>
+            <li data-reveal>
+              <span class="studio__num">P-02</span>
+              <h3 data-i18n="studio.p2.title">Performance ≠ feature</h3>
+              <p data-i18n="studio.p2.body">Szybkość, dostępność i czytelność są wbudowane w cenę. Nie pojawiają się jako „opcjonalna optymalizacja" w fakturze.</p>
+            </li>
+            <li data-reveal>
+              <span class="studio__num">P-03</span>
+              <h3 data-i18n="studio.p3.title">Kod do oddania</h3>
+              <p data-i18n="studio.p3.body">Po launchu repo zostaje u Ciebie, z dokumentacją, którą zrozumie programista, którego zatrudnisz za rok.</p>
+            </li>
+            <li data-reveal>
+              <span class="studio__num">P-04</span>
+              <h3 data-i18n="studio.p4.title">Bez przeciągania</h3>
+              <p data-i18n="studio.p4.body">Pracujemy w tygodniowych iteracjach z jasnym deliverable. Jeśli coś nie idzie — mówimy w piątek.</p>
+            </li>
+          </ol>
+        </div>
+
+        <aside class="studio__anti">
+          <div class="studio__antiLabel">
+            <span>×</span>
+            <span data-i18n="studio.anti.label">Czego nie robimy</span>
+          </div>
+          <ul class="studio__antiList">
+            <li><span data-i18n="studio.anti.l1">Stron na WordPressie</span></li>
+            <li><span data-i18n="studio.anti.l2">Sklepów Shopify pod klucz</span></li>
+            <li><span data-i18n="studio.anti.l3">Generycznych template'ów</span></li>
+            <li><span data-i18n="studio.anti.l4">Projektów „na wczoraj"</span></li>
+          </ul>
+
+          <div class="studio__team" aria-labelledby="studioTeamLabel">
+            <div class="studio__teamLabel" id="studioTeamLabel">
+              <span>·</span>
+              <span data-i18n="studio.team.label">Zespół</span>
+            </div>
+            <ul class="studio__teamList">
+              <li class="studio__teamMember">
+                <span class="studio__teamAvatar" data-name="Bartek" style="--av-from: var(--accent); --av-to: var(--cyan);">BK</span>
+                <span class="studio__teamInfo">
+                  <b>Bartek</b>
+                  <em class="studio__teamRole" data-i18n="studio.team.role1">CEO</em>
+                  <small data-i18n="studio.team.r1">Coding · Design · Product</small>
+                </span>
+              </li>
+              <li class="studio__teamMember">
+                <span class="studio__teamAvatar" style="--av-from: var(--cyan); --av-to: var(--sky);">NK</span>
+                <span class="studio__teamInfo">
+                  <b data-i18n="studio.team.n2">Nikodem</b>
+                  <em class="studio__teamRole" data-i18n="studio.team.role2">Vice-CEO</em>
+                  <small data-i18n="studio.team.r2">Coding · Design · UI/UX</small>
+                </span>
+              </li>
+              <li class="studio__teamMember">
+                <span class="studio__teamAvatar" style="--av-from: var(--sky); --av-to: var(--gold);">BR</span>
+                <span class="studio__teamInfo">
+                  <b data-i18n="studio.team.n3">Borys</b>
+                  <em class="studio__teamRole" data-i18n="studio.team.role3">Marketing</em>
+                  <small data-i18n="studio.team.r3">Strategy · brand · growth</small>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/03</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- SERVICES — editorial table layout                           -->
+    <!-- ========================================================== -->
+    <section class="services" id="services">
+      <header class="section-head">
+        <div class="section-head__label" data-reveal>
+          <i></i>
+          <span data-i18n="services.label">02 — Usługi</span>
+        </div>
+        <h2 class="section-head__title" data-reveal-words data-i18n="services.title">
+          Co robimy.
+        </h2>
+        <p class="section-head__lead" data-reveal data-i18n="services.lead">
+          Pełen zakres usług produktowych — od pierwszego szkicu marki, przez interfejs, po działającą aplikację i jej utrzymanie.
+        </p>
+      </header>
+
+      <div class="svc">
+        <div class="svc__head">
+          <span data-i18n="services.detailLabel">W zakresie</span>
+          <span data-i18n="services.timeLabel">Czas realizacji</span>
+          <span data-i18n="services.stackLabel">Stack</span>
+        </div>
+
+        <article class="svc__row" data-svc="01" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">01</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="10" width="52" height="38" rx="3"/><path d="M6 18h52M14 14h.01M20 14h.01M26 14h.01"/><path d="M22 56h20M32 48v8"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.web.title">Aplikacje webowe</h3>
+            <p data-i18n="svc.web.body">SaaS, dashboardy, panele wewnętrzne. Stack, na którym wiemy, że nie zawiedzie.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.web.deliv">Architektura, frontend, backend, deploy, dokumentacja</div>
+          <div class="svc__time" data-i18n="svc.web.time">6–12 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.web.stack">Next.js · TypeScript · PostgreSQL · Vercel</div>
+        </article>
+
+        <article class="svc__row" data-svc="02" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">02</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="18" y="4" width="28" height="56" rx="5"/><path d="M28 54h8M18 12h28M18 50h28"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.mobile.title">Aplikacje mobilne</h3>
+            <p data-i18n="svc.mobile.body">iOS i Android jednym kodem. Native gdy konieczne. Pełna ścieżka aż do publikacji w sklepach.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.mobile.deliv">Design, kod, integracje, store submission</div>
+          <div class="svc__time" data-i18n="svc.mobile.time">8–16 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.mobile.stack">React Native · Expo · Swift · Kotlin</div>
+        </article>
+
+        <article class="svc__row" data-svc="03" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">03</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 6l4 12 12 1-9 9 3 13-12-7-12 7 3-13-9-9 12-1z"/><circle cx="32" cy="32" r="22"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.mvp.title">MVP produktowe</h3>
+            <p data-i18n="svc.mvp.body">Walidacja pomysłu w skończonym czasie. Najmniejsze, ale prawdziwie funkcjonalne wcielenie produktu.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.mvp.deliv">Discovery, design, build, deploy</div>
+          <div class="svc__time" data-i18n="svc.mvp.time">6 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.mvp.stack">Next.js · Supabase · Vercel</div>
+        </article>
+
+        <article class="svc__row" data-svc="04" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">04</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="12"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.branding.title">Branding</h3>
+            <p data-i18n="svc.branding.body">Strategia marki, system identyfikacji, ton komunikacji. Brandbook, którego się używa.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.branding.deliv">Strategia, logo, system, brandbook</div>
+          <div class="svc__time" data-i18n="svc.branding.time">4–8 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.branding.stack">Figma · Adobe Suite · Brand Strategy</div>
+        </article>
+
+        <article class="svc__row" data-svc="05" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">05</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 20l24-12 24 12M8 32l24 12 24-12M8 44l24 12 24-12"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.uxui.title">UI / UX Design</h3>
+            <p data-i18n="svc.uxui.body">Design produktu — od user research, przez prototypy, po pełen design system.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.uxui.deliv">Research, IA, prototypy, design system</div>
+          <div class="svc__time" data-i18n="svc.uxui.time">4–10 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.uxui.stack">Figma · Storybook · Design Tokens</div>
+        </article>
+
+        <article class="svc__row" data-svc="06" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">06</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M12 52l6-6M46 18l6-6"/><circle cx="32" cy="32" r="12"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.logo.title">Logo i identyfikacja</h3>
+            <p data-i18n="svc.logo.body">Logo, paleta, typografia, papeteria. Spójny system od wizytówki po reklamę zewnętrzną.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.logo.deliv">Logo, system, papeteria, brandbook</div>
+          <div class="svc__time" data-i18n="svc.logo.time">3–5 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.logo.stack">Illustrator · Figma · After Effects</div>
+        </article>
+
+        <article class="svc__row" data-svc="07" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">07</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="14" width="52" height="36" rx="3"/><path d="M6 24h52M16 36l4 4-4 4M28 44h12"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.landing.title">Landing page</h3>
+            <p data-i18n="svc.landing.body">Strony konwertujące i robiące wrażenie. Z motion, parallaxem, dbałością o microcopy.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.landing.deliv">Copy, design, motion, kod, deploy</div>
+          <div class="svc__time" data-i18n="svc.landing.time">3–6 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.landing.stack">Next.js · GSAP · Three.js</div>
+        </article>
+
+        <article class="svc__row" data-svc="08" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">08</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="28" cy="28" r="20"/><path d="M42 42l16 16M22 28h12M28 22v12"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.debug.title">Audyt produktu</h3>
+            <p data-i18n="svc.debug.body">Twoja aplikacja zwalnia, sypie się na produkcji albo nie konwertuje? Diagnozujemy, raportujemy, naprawiamy.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.debug.deliv">Audyt, raport, plan napraw, wdrożenie</div>
+          <div class="svc__time" data-i18n="svc.debug.time">2–4 tygodnie</div>
+          <div class="svc__stack" data-i18n="svc.debug.stack">Lighthouse · Sentry · Datadog</div>
+        </article>
+
+        <article class="svc__row" data-svc="09" data-magnetic data-cursor="VIEW">
+          <div class="svc__no">09</div>
+          <div class="svc__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="16" width="48" height="32" rx="3"/><circle cx="20" cy="32" r="4"/><path d="M30 28h18M30 36h12"/></svg>
+          </div>
+          <div class="svc__title">
+            <h3 data-i18n="svc.photo.title">Visual & Motion</h3>
+            <p data-i18n="svc.photo.body">Key visuale, ilustracje pod brandbook, mikroanimacje, lottie do produktu.</p>
+          </div>
+          <div class="svc__deliv" data-i18n="svc.photo.deliv">Key visuals, ilustracje, animacje</div>
+          <div class="svc__time" data-i18n="svc.photo.time">2–6 tygodni</div>
+          <div class="svc__stack" data-i18n="svc.photo.stack">After Effects · Lottie · Figma</div>
+        </article>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/04</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- HORIZONTAL REEL — pinned, scroll horizontally               -->
+    <!-- ========================================================== -->
+    <section class="reel" id="reel">
+      <div class="reel__pin">
+        <div class="reel__label">
+          <i></i><span data-i18n="reel.label">Manifesto</span>
+        </div>
+        <div class="reel__track" id="reelTrack">
+          <span class="reel__word" data-i18n="reel.w1">Projektujemy.</span>
+          <span class="reel__word reel__word--em" data-i18n="reel.w2">Budujemy.</span>
+          <span class="reel__word" data-i18n="reel.w3">Optymalizujemy.</span>
+          <span class="reel__word reel__word--em" data-i18n="reel.w4">Skalujemy.</span>
+          <span class="reel__word" data-i18n="reel.w5">Wytyczamy.</span>
+          <span class="reel__word reel__word--em" data-i18n="reel.w6">Sięgamy szczytu.</span>
+        </div>
+        <div class="reel__hint">
+          <span data-i18n="reel.hint">Scroll →</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- INTERLUDE — philosophy quote                               -->
+    <!-- ========================================================== -->
+    <section class="interlude">
+      <div class="interlude__bg"></div>
+      <div class="interlude__inner">
+        <div class="interlude__label">
+          <i></i><span data-i18n="interlude1.label">Filozofia</span>
+        </div>
+        <p class="interlude__text" data-i18n="interlude1.text">Detal nie jest dodatkiem do projektu. Detal JEST projektem.</p>
+        <div class="interlude__author" data-i18n="interlude1.author">— Filozofia studia</div>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/05</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- PROCESS — STICKY TIMELINE                                  -->
+    <!-- ========================================================== -->
+    <section class="process" id="process">
+      <div class="process__pin">
+        <div class="process__bg">
+          <!-- Per-step ambient videos (crossfaded by JS based on active step) -->
+          <video class="process__bgVideo" data-step="1" autoplay loop muted playsinline preload="metadata">
+            <source src="assets/intro.mp4" type="video/mp4" />
+          </video>
+          <video class="process__bgVideo" data-step="2" autoplay loop muted playsinline preload="metadata">
+            <source src="assets/work.mp4" type="video/mp4" />
+          </video>
+          <video class="process__bgVideo" data-step="3" autoplay loop muted playsinline preload="metadata">
+            <source src="assets/process.mp4" type="video/mp4" />
+          </video>
+          <video class="process__bgVideo" data-step="4" autoplay loop muted playsinline preload="metadata">
+            <source src="assets/cta.mp4" type="video/mp4" />
+          </video>
+          <picture class="process__bgImg">
+            <source media="(max-width: 700px)" type="image/avif" srcset="assets/climber-m.avif" />
+            <source media="(max-width: 700px)" type="image/webp" srcset="assets/climber-m.webp" />
+            <source media="(max-width: 700px)" srcset="assets/climber-m.png" />
+            <source type="image/avif" srcset="assets/climber.avif" />
+            <source type="image/webp" srcset="assets/climber.webp" />
+            <img src="assets/climber.png" alt="" loading="lazy" decoding="async" />
+          </picture>
+          <div class="process__bgVeil"></div>
+        </div>
+
+        <div class="process__line" aria-hidden="true">
+          <svg viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none">
+            <path d="M40 540 C 220 480, 320 380, 420 360 S 640 280, 760 220 S 980 120, 1160 60" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div class="process__inner">
+          <header class="process__head">
+            <div class="section-head__label">
+              <i></i><span data-i18n="process.label">03 — Proces</span>
+            </div>
+            <h2 class="section-head__title" data-i18n="process.title">Jak pracujemy.</h2>
+            <div class="process__stepCount"><span id="processStepNum">01</span><i></i><span>04</span></div>
+          </header>
+
+          <ol class="process__steps">
+            <li class="step" data-step="1">
+              <span class="step__dur" data-i18n="process.s1.dur">Tydzień 1</span>
+              <span class="step__num">01</span>
+              <h3 data-i18n="process.s1.title">Discovery</h3>
+              <p data-i18n="process.s1.body">Tydzień rozmów, wywiadów z użytkownikami, audytu konkurencji. Wychodzimy z dokumentem brief + roadmap, który wszyscy podpisują.</p>
+            </li>
+            <li class="step" data-step="2">
+              <span class="step__dur" data-i18n="process.s2.dur">Tygodnie 2–4</span>
+              <span class="step__num">02</span>
+              <h3 data-i18n="process.s2.title">Design</h3>
+              <p data-i18n="process.s2.body">Architektura informacji, prototyp w Figmie, system designu. Iteracje co tydzień, demo na żywo, decyzje od razu.</p>
+            </li>
+            <li class="step" data-step="3">
+              <span class="step__dur" data-i18n="process.s3.dur">Tygodnie 4–10</span>
+              <span class="step__num">03</span>
+              <h3 data-i18n="process.s3.title">Build</h3>
+              <p data-i18n="process.s3.body">Kod, integracje, testy. Praca w sprintach 1-tygodniowych, deploy do staging po każdym sprincie, zero „big bang releases".</p>
+            </li>
+            <li class="step" data-step="4">
+              <span class="step__dur" data-i18n="process.s4.dur">Tydzień 10 +</span>
+              <span class="step__num">04</span>
+              <h3 data-i18n="process.s4.title">Launch &amp; care</h3>
+              <p data-i18n="process.s4.body">Wdrożenie, monitoring, plan rozwoju na pierwsze 90 dni. Zostajemy z Tobą — jako on-call albo strategiczny partner.</p>
+            </li>
+          </ol>
+
+          <div class="process__progress">
+            <div class="process__progressBar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/06</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- TERRAIN — Three.js wireframe mountain, pinned                -->
+    <!-- ========================================================== -->
+    <section class="terrain" id="terrain">
+      <div class="terrain__pin">
+        <canvas class="terrain__canvas" id="terrainCanvas" aria-hidden="true"></canvas>
+        <div class="terrain__overlay">
+          <div class="terrain__label">
+            <i></i><span data-i18n="terrain.label">Mapa</span>
+          </div>
+          <h2 class="terrain__title">
+            <span data-i18n="terrain.t1">Każdy projekt</span>
+            <em data-i18n="terrain.t2">to teren do zdobycia.</em>
+          </h2>
+          <p class="terrain__lead" data-i18n="terrain.lead">Czytamy ukształtowanie problemu, wyznaczamy szlak, ruszamy w górę. Bez ścinania zakrętów, bez bylejakości.</p>
+          <div class="terrain__stats">
+            <div><strong data-i18n="terrain.s1">DESIGN</strong><span>01</span></div>
+            <div><strong data-i18n="terrain.s2">CODE</strong><span>02</span></div>
+            <div><strong data-i18n="terrain.s3">SHIP</strong><span>03</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/07</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- WORK / PORTFOLIO PLACEHOLDER                                -->
+    <!-- ========================================================== -->
+    <section class="work" id="work">
+      <video class="work__bgVideo" autoplay loop muted playsinline preload="metadata" data-fallback>
+        <source src="assets/work.mp4" type="video/mp4" />
+      </video>
+      <header class="section-head">
+        <div class="section-head__label" data-reveal>
+          <i></i><span data-i18n="work.label">03 — Realizacje</span>
+        </div>
+        <h2 class="section-head__title" data-reveal-words data-i18n="work.title">Wkrótce na szczycie.</h2>
+        <p class="section-head__lead" data-reveal data-i18n="work.lead">
+          Pierwsze realizacje pojawią się tu już niedługo. Masz pomysł? Może to właśnie Twój projekt zostanie pierwszą gwiazdą tej galerii.
+        </p>
+      </header>
+
+      <div class="work__grid">
+        <!-- FEATURED CASE STUDY: this landing page itself, fully transparent meta -->
+        <article class="work__card work__card--featured" data-magnetic data-cursor="VIEW">
+          <div class="work__cover work__cover--featured"></div>
+          <div class="work__meta">
+            <span class="work__pill work__pill--live" data-i18n="work.live">Live · ten landing</span>
+            <h3 data-i18n="work.featured.title">PRJ-001 · NorthPeak Studio</h3>
+            <p data-i18n="work.featured.body">Self-hosted landing studia — Three.js shader hero, 7 ambient video bgs, custom intro, ⌘K palette, 2-language i18n. Zero frameworków poza GSAP+Lenis+Three.</p>
+            <dl class="work__metrics">
+              <div><dt data-i18n="work.metric.sections">Sekcji</dt><dd>14</dd></div>
+              <div><dt data-i18n="work.metric.video">Video bg</dt><dd>7</dd></div>
+              <div><dt data-i18n="work.metric.weight">Page weight</dt><dd>~9 MB</dd></div>
+              <div><dt data-i18n="work.metric.shipped">Shipped</dt><dd>2026-05</dd></div>
+            </dl>
+            <div class="work__featuredTags">
+              <span>Three.js · GLSL shader</span>
+              <span>GSAP · Lenis</span>
+              <span>AVIF + WebP</span>
+              <span>Higgsfield video</span>
+              <span>WCAG focus-visible</span>
+              <span>i18n PL/EN</span>
+            </div>
+          </div>
+        </article>
+        <article class="work__card" data-magnetic data-cursor="SOON">
+          <div class="work__cover work__cover--sunset"></div>
+          <div class="work__meta">
+            <span class="work__pill" data-i18n="work.soon">Wkrótce</span>
+            <h3 data-i18n="work.p2.title">Projekt nr 02</h3>
+            <p data-i18n="work.p2.body">Branding marki premium</p>
+          </div>
+        </article>
+        <article class="work__card" data-magnetic data-cursor="SOON">
+          <div class="work__cover work__cover--waterfall"></div>
+          <div class="work__meta">
+            <span class="work__pill" data-i18n="work.soon">Wkrótce</span>
+            <h3 data-i18n="work.p3.title">Projekt nr 03</h3>
+            <p data-i18n="work.p3.body">Aplikacja mobilna iOS &amp; Android</p>
+          </div>
+        </article>
+        <article class="work__card" data-magnetic data-cursor="SOON">
+          <div class="work__cover work__cover--path"></div>
+          <div class="work__meta">
+            <span class="work__pill" data-i18n="work.soon">Wkrótce</span>
+            <h3 data-i18n="work.p4.title">Projekt nr 04</h3>
+            <p data-i18n="work.p4.body">Landing page z motion</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- INTERLUDE 2 — manifesto-style impact                        -->
+    <!-- ========================================================== -->
+    <section class="interlude interlude--right">
+      <div class="interlude__bg"></div>
+      <div class="interlude__inner">
+        <div class="interlude__label">
+          <i></i><span data-i18n="interlude2.label">Obietnica</span>
+        </div>
+        <p class="interlude__text" data-i18n="interlude2.text">Nie budujemy stron. Budujemy <em>doświadczenia</em>, które zostają w głowach.</p>
+        <div class="interlude__author" data-i18n="interlude2.author">— Studio NorthPeak</div>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/08</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- TECH STACK                                                 -->
+    <!-- ========================================================== -->
+    <section class="stack" id="stack">
+      <video class="stack__bgVideo" autoplay loop muted playsinline preload="metadata" data-fallback>
+        <source src="assets/stack.mp4" type="video/mp4" />
+      </video>
+      <header class="section-head">
+        <div class="section-head__label" data-reveal>
+          <i></i><span data-i18n="stack.label">05 — Technologie</span>
+        </div>
+        <h2 class="section-head__title" data-reveal-words data-i18n="stack.title">Czym pracujemy.</h2>
+        <p class="section-head__lead" data-reveal data-i18n="stack.lead">Świadomy wybór, nie zlepek modnych nazw. Każde z poniższych narzędzi przeszło u nas próbę produkcyjną.</p>
+      </header>
+
+      <div class="stackGrid">
+        <div class="stackGrid__col">
+          <div class="stackGrid__cat">
+            <span class="stackGrid__catNum">A</span>
+            <span data-i18n="stack.cat1">Frontend</span>
+          </div>
+          <ul class="stackGrid__list">
+            <li>Next.js<small>2020 →</small></li>
+            <li>React<small>2019 →</small></li>
+            <li>TypeScript<small>2020 →</small></li>
+            <li>Tailwind<small>2021 →</small></li>
+            <li>GSAP<small>2018 →</small></li>
+            <li>Three.js<small>2019 →</small></li>
+            <li>Framer Motion<small>2022 →</small></li>
+          </ul>
+        </div>
+        <div class="stackGrid__col">
+          <div class="stackGrid__cat">
+            <span class="stackGrid__catNum">B</span>
+            <span data-i18n="stack.cat2">Backend & infra</span>
+          </div>
+          <ul class="stackGrid__list">
+            <li>Node.js<small>2017 →</small></li>
+            <li>PostgreSQL<small>2018 →</small></li>
+            <li>Supabase<small>2022 →</small></li>
+            <li>Vercel<small>2020 →</small></li>
+            <li>Cloudflare<small>2021 →</small></li>
+            <li>Stripe<small>2019 →</small></li>
+            <li>Sentry<small>2020 →</small></li>
+          </ul>
+        </div>
+        <div class="stackGrid__col">
+          <div class="stackGrid__cat">
+            <span class="stackGrid__catNum">C</span>
+            <span data-i18n="stack.cat3">Mobile</span>
+          </div>
+          <ul class="stackGrid__list">
+            <li>React Native<small>2020 →</small></li>
+            <li>Expo<small>2021 →</small></li>
+            <li>Swift<small>2018 →</small></li>
+            <li>Kotlin<small>2019 →</small></li>
+            <li>Firebase<small>2018 →</small></li>
+            <li>RevenueCat<small>2023 →</small></li>
+          </ul>
+        </div>
+        <div class="stackGrid__col">
+          <div class="stackGrid__cat">
+            <span class="stackGrid__catNum">D</span>
+            <span data-i18n="stack.cat4">Design & Motion</span>
+          </div>
+          <ul class="stackGrid__list">
+            <li>Figma<small>2017 →</small></li>
+            <li>Adobe Suite<small>2014 →</small></li>
+            <li>After Effects<small>2015 →</small></li>
+            <li>Lottie<small>2018 →</small></li>
+            <li>Blender<small>2020 →</small></li>
+            <li>Storybook<small>2021 →</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/09</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- FAQ                                                         -->
+    <!-- ========================================================== -->
+    <section class="faq" id="faq">
+      <video class="faq__bgVideo" autoplay loop muted playsinline preload="metadata" data-fallback>
+        <source src="assets/faq.mp4" type="video/mp4" />
+      </video>
+      <header class="section-head">
+        <div class="section-head__label" data-reveal>
+          <i></i><span data-i18n="faq.label">06 — FAQ</span>
+        </div>
+        <h2 class="section-head__title" data-reveal-words data-i18n="faq.title">Najczęstsze pytania.</h2>
+      </header>
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary>
+            <span class="faq__num">01</span>
+            <span class="faq__q" data-i18n="faq.q1.q">Ile kosztuje typowy projekt?</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a" data-i18n="faq.q1.a">Każdy projekt wyceniamy indywidualnie po krótkim discovery. Wycena jest fix — bez „to jeszcze dojdzie". Ramowy budżet podajemy w pierwszej odpowiedzi na briefa, finalną kwotę po rozmowie.</div>
+        </details>
+        <details class="faq__item">
+          <summary>
+            <span class="faq__num">02</span>
+            <span class="faq__q" data-i18n="faq.q2.q">Jak długo to trwa?</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a" data-i18n="faq.q2.a">Landing — 3–6 tygodni. Aplikacja webowa — 6–12 tygodni. Aplikacja mobilna — 8–16 tygodni. MVP — fix 6 tygodni od kick-offu. Wszystko z buforem na rewizje.</div>
+        </details>
+        <details class="faq__item">
+          <summary>
+            <span class="faq__num">03</span>
+            <span class="faq__q" data-i18n="faq.q3.q">Kto jest właścicielem kodu?</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a" data-i18n="faq.q3.a">Ty. Po launchu repo na Twoim GitHub/GitLab, dokumentacja, deployment access, hasła do wszystkich serwisów. Bez „vendor lock-in", bez ukrytych dependencies.</div>
+        </details>
+        <details class="faq__item">
+          <summary>
+            <span class="faq__num">04</span>
+            <span class="faq__q" data-i18n="faq.q4.q">Co, jeśli coś się popsuje po launchu?</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a" data-i18n="faq.q4.a">Pierwsze 90 dni — wszystkie bugi naprawiamy bez dodatkowych opłat. Potem wybierasz: pakiet utrzymaniowy albo on-demand. Większość klientów zostaje z nami na dłużej.</div>
+        </details>
+        <details class="faq__item">
+          <summary>
+            <span class="faq__num">05</span>
+            <span class="faq__q" data-i18n="faq.q5.q">Pracujecie z nami zdalnie?</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a" data-i18n="faq.q5.a">Tak. Discovery zwykle 2–3 spotkania na miejscu lub przez wideo. Reszta — Slack, Linear, Loom, sprint demo co piątek. Mamy klientów w PL, DE, UK, US.</div>
+        </details>
+      </div>
+    </section>
+
+    <div class="divider" data-divider><span class="divider__line"></span><span class="divider__num">/10</span><span class="divider__dot"></span><span class="divider__line divider__line--right"></span></div>
+
+    <!-- ========================================================== -->
+    <!-- CTA                                                        -->
+    <!-- ========================================================== -->
+    <section class="cta" id="contact">
+      <video class="cta__bgVideo" autoplay loop muted playsinline preload="metadata" data-fallback>
+        <source src="assets/cta.mp4" type="video/mp4" />
+      </video>
+      <picture class="cta__bg" data-parallax="0.3">
+        <source media="(max-width: 700px)" type="image/avif" srcset="assets/night-camp-m.avif" />
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/night-camp-m.webp" />
+        <source media="(max-width: 700px)" srcset="assets/night-camp-m.png" />
+        <source type="image/avif" srcset="assets/night-camp.avif" />
+        <source type="image/webp" srcset="assets/night-camp.webp" />
+        <img src="assets/night-camp.png" alt="" loading="lazy" decoding="async" />
+      </picture>
+      <div class="cta__veil"></div>
+
+      <div class="cta__split">
+        <div class="cta__left">
+          <div class="section-head__label" data-reveal>
+            <i></i><span data-i18n="cta.label">07 — Kontakt</span>
+          </div>
+          <h2 class="cta__title" data-reveal-words>
+            <span data-i18n="cta.title">Masz konkretny projekt?</span><br/>
+            <em data-i18n="cta.title2">Powiedz nam o nim.</em>
+          </h2>
+          <p class="cta__lead" data-reveal data-i18n="cta.lead">
+            Najlepiej e-mail z dwoma zdaniami o tym, co budujesz, i deadline'em, jaki masz w głowie. Odpowiadamy w mniej niż 12 godzin w dni robocze.
+          </p>
+
+          <form class="wizard" id="wizard" novalidate aria-labelledby="wizardTitle"
+                action="https://formsubmit.co/ajax/contact@north-peak-studio.com" method="POST">
+            <!-- honeypot — bots fill this, humans don't see it -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" />
+            <input type="hidden" name="_subject" value="Brief — z formularza northpeak.studio" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <h3 id="wizardTitle" class="wizard__title" data-i18n="wizard.title">Brief w 4 krokach</h3>
+
+            <!-- Progress indicator -->
+            <ol class="wizard__steps" aria-hidden="true">
+              <li class="wizard__step is-active" data-step="0"><span>1</span><b data-i18n="wizard.s1.short">Projekt</b></li>
+              <li class="wizard__step" data-step="1"><span>2</span><b data-i18n="wizard.s2.short">Budżet</b></li>
+              <li class="wizard__step" data-step="2"><span>3</span><b data-i18n="wizard.s3.short">Termin</b></li>
+              <li class="wizard__step" data-step="3"><span>4</span><b data-i18n="wizard.s4.short">Kontakt</b></li>
+            </ol>
+
+            <div class="wizard__panes" id="wizardPanes">
+              <!-- STEP 1: project type -->
+              <div class="wizard__pane is-active" data-pane="0">
+                <div class="wizard__q" data-i18n="wizard.s1.q">Co dla Ciebie zbudujemy?</div>
+                <div class="wizard__choices">
+                  <label class="wizard__choice"><input type="radio" name="type" value="web" /><span data-i18n="wizard.s1.web">Aplikacja webowa</span></label>
+                  <label class="wizard__choice"><input type="radio" name="type" value="mobile" /><span data-i18n="wizard.s1.mobile">Aplikacja mobilna</span></label>
+                  <label class="wizard__choice"><input type="radio" name="type" value="mvp" /><span data-i18n="wizard.s1.mvp">MVP produktowe</span></label>
+                  <label class="wizard__choice"><input type="radio" name="type" value="landing" /><span data-i18n="wizard.s1.landing">Landing / strona</span></label>
+                  <label class="wizard__choice"><input type="radio" name="type" value="branding" /><span data-i18n="wizard.s1.branding">Branding</span></label>
+                  <label class="wizard__choice"><input type="radio" name="type" value="other" /><span data-i18n="wizard.s1.other">Coś innego</span></label>
+                </div>
+              </div>
+
+              <!-- STEP 2: budget -->
+              <div class="wizard__pane" data-pane="1">
+                <div class="wizard__q" data-i18n="wizard.s2.q">Orientacyjny budżet projektu?</div>
+                <div class="wizard__choices wizard__choices--col">
+                  <label class="wizard__choice"><input type="radio" name="budget" value="< 5k €" /><span data-i18n="wizard.s2.b1">Poniżej 5 000 €</span></label>
+                  <label class="wizard__choice"><input type="radio" name="budget" value="5–15k €" /><span data-i18n="wizard.s2.b2">5 000 – 15 000 €</span></label>
+                  <label class="wizard__choice"><input type="radio" name="budget" value="15–40k €" /><span data-i18n="wizard.s2.b3">15 000 – 40 000 €</span></label>
+                  <label class="wizard__choice"><input type="radio" name="budget" value="40k+ €" /><span data-i18n="wizard.s2.b4">Powyżej 40 000 €</span></label>
+                  <label class="wizard__choice"><input type="radio" name="budget" value="not sure" /><span data-i18n="wizard.s2.b5">Jeszcze nie wiem — pomóżcie wycenić</span></label>
+                </div>
+              </div>
+
+              <!-- STEP 3: deadline -->
+              <div class="wizard__pane" data-pane="2">
+                <div class="wizard__q" data-i18n="wizard.s3.q">Kiedy chcesz to mieć gotowe?</div>
+                <div class="wizard__choices wizard__choices--col">
+                  <label class="wizard__choice"><input type="radio" name="deadline" value="ASAP (4 wks)" /><span data-i18n="wizard.s3.d1">ASAP (do 4 tygodni)</span></label>
+                  <label class="wizard__choice"><input type="radio" name="deadline" value="Q3 2026" /><span data-i18n="wizard.s3.d2">Q3 2026</span></label>
+                  <label class="wizard__choice"><input type="radio" name="deadline" value="Q4 2026" /><span data-i18n="wizard.s3.d3">Q4 2026</span></label>
+                  <label class="wizard__choice"><input type="radio" name="deadline" value="2027+" /><span data-i18n="wizard.s3.d4">2027 lub później</span></label>
+                  <label class="wizard__choice"><input type="radio" name="deadline" value="flexible" /><span data-i18n="wizard.s3.d5">Elastycznie — chcemy zrobić dobrze</span></label>
+                </div>
+              </div>
+
+              <!-- STEP 4: contact details + brief -->
+              <div class="wizard__pane" data-pane="3">
+                <div class="wizard__q" data-i18n="wizard.s4.q">Skontaktujmy się.</div>
+                <label class="wizard__field">
+                  <span class="wizard__fieldLabel" data-i18n="wizard.s4.name">Twoje imię</span>
+                  <input type="text" name="name" id="wizName" autocomplete="name" placeholder="Jan Kowalski" />
+                </label>
+                <label class="wizard__field">
+                  <span class="wizard__fieldLabel" data-i18n="wizard.s4.email">Twój e-mail</span>
+                  <input type="email" name="email" id="wizEmail" autocomplete="email" placeholder="jan@firma.pl" />
+                </label>
+                <label class="wizard__field">
+                  <span class="wizard__fieldLabel" data-i18n="wizard.s4.brief">Jedno zdanie o projekcie (opcjonalnie)</span>
+                  <textarea name="brief" id="wizBrief" rows="3" placeholder="Co budujemy / co chcemy osiągnąć..."></textarea>
+                </label>
+              </div>
+
+              <!-- STEP 5 (post-submit): success state -->
+              <div class="wizard__pane wizard__pane--done" data-pane="4" aria-live="polite">
+                <div class="wizard__doneIcon" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2.4" fill="none" class="wizard__doneCircle"/>
+                    <path d="M20 33 L29 42 L46 24" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" class="wizard__doneCheck"/>
+                  </svg>
+                </div>
+                <h4 class="wizard__doneTitle" data-i18n="wizard.done.title">Brief poszedł.</h4>
+                <p class="wizard__doneBody" data-i18n="wizard.done.body" data-i18n-html>Dostaliśmy go na <b>contact@north-peak-studio.com</b>. Wracamy z odpowiedzią w mniej niż 12h w dni robocze.</p>
+                <button type="button" class="wizard__doneAgain" id="wizardReset" data-i18n="wizard.done.again">Wyślij kolejny brief</button>
+              </div>
+            </div>
+
+            <div class="wizard__nav">
+              <button type="button" class="wizard__back" id="wizardBack" disabled aria-label="Poprzedni krok">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+                <span data-i18n="wizard.back">Wstecz</span>
+              </button>
+              <div class="wizard__counter"><span id="wizardCounter">1</span> / 4</div>
+              <button type="button" class="wizard__next btn btn--primary" id="wizardNext" data-magnetic data-cursor="NEXT">
+                <span id="wizardNextLabel" data-i18n="wizard.next">Dalej</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="cta__or"><span data-i18n="cta.form.or">lub bezpośrednio</span></div>
+
+          <a href="mailto:contact@north-peak-studio.com" class="cta__email" data-magnetic data-cursor="WRITE">
+            <span class="cta__emailLabel" data-i18n="cta.write">Napisz do nas</span>
+            <span class="cta__emailValue">contact@north-peak-studio.com</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+
+          <div class="cta__chips">
+            <span data-i18n="cta.chip1">⌁ Discovery call w 7 dni</span>
+            <span data-i18n="cta.chip2">⌁ Wycena fix po briefie</span>
+            <span data-i18n="cta.chip3">⌁ NDA na życzenie</span>
+          </div>
+        </div>
+
+        <aside class="cta__right">
+          <div class="cta__reply">
+            <div class="cta__replyLabel" data-i18n="cta.replyLabel">Co dostaniesz w odpowiedzi</div>
+            <ol class="cta__replyList">
+              <li><span class="cta__replyNum">01</span><span data-i18n="cta.r1">Konkretne pytania, na których zależy nam, żeby Cię rozumieć.</span></li>
+              <li><span class="cta__replyNum">02</span><span data-i18n="cta.r2">Ramy budżetowe i orientacyjny harmonogram już w pierwszej wiadomości.</span></li>
+              <li><span class="cta__replyNum">03</span><span data-i18n="cta.r3">Discovery call w 7 dni od decyzji — albo szczerą informację, że nie jesteśmy najlepszym dopasowaniem.</span></li>
+            </ol>
+          </div>
+
+          <div class="cta__alt">
+            <div class="cta__altLabel" data-i18n="cta.altLabel">Inne kanały</div>
+            <div class="cta__altList">
+              <a href="https://linkedin.com/company/northpeak-studio" target="_blank" rel="noopener noreferrer" data-magnetic data-cursor="OPEN">
+                <span class="cta__altKey" data-i18n="cta.alt1.label">LinkedIn</span>
+                <span class="cta__altVal" data-i18n="cta.alt1.value">/company/northpeak-studio</span>
+              </a>
+              <a href="tel:+48000000000" data-magnetic data-cursor="CALL">
+                <span class="cta__altKey" data-i18n="cta.alt2.label">Telefon</span>
+                <span class="cta__altVal" data-i18n="cta.alt2.value">+48 000 000 000</span>
+              </a>
+              <a href="https://cal.com/northpeak" target="_blank" rel="noopener noreferrer" data-magnetic data-cursor="BOOK">
+                <span class="cta__altKey" data-i18n="cta.alt3.label">Calendar</span>
+                <span class="cta__altVal" data-i18n="cta.alt3.value">cal.com/northpeak</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- FOOTER                                                     -->
+    <!-- ========================================================== -->
+    <!-- ========================================================== -->
+    <!-- STUDIO STATUS PANEL — now-strip + diary, near the bottom    -->
+    <!-- ========================================================== -->
+    <aside class="studioStatus" id="studioStatus" aria-labelledby="studioStatusTitle">
+      <div class="studioStatus__inner">
+        <div class="studioStatus__row studioStatus__row--now">
+          <span class="studioStatus__dot"></span>
+          <span class="studioStatus__key" data-i18n="hero.nowKey">TERAZ W STUDIU</span>
+          <span class="studioStatus__sep">·</span>
+          <span class="studioStatus__text" data-i18n="hero.nowText" data-i18n-html>
+            Pracujemy nad zaawansowaną aplikacją dla kierowców
+          </span>
+        </div>
+
+        <div class="studioStatus__showcase" aria-label="Aktywny projekt: OCTA">
+          <div class="studioStatus__showcaseLogo">
+            <img class="studioStatus__octa" src="assets/octa-logo.png" alt="OCTA" width="320" height="138" loading="lazy" decoding="async" />
+            <span class="studioStatus__scan" aria-hidden="true"></span>
+          </div>
+          <div class="studioStatus__showcaseMeta">
+            <span class="studioStatus__showcaseLabel" data-i18n="showcase.label">PROJEKT W TOKU</span>
+            <span class="studioStatus__showcaseDesc" data-i18n="showcase.desc">aplikacja dla kierowców · iteracja UI</span>
+            <span class="studioStatus__showcaseBy">
+              <span data-i18n="showcase.by">przez</span>
+              <svg class="studioStatus__npMark" viewBox="0 0 600 200" fill="none" aria-hidden="true">
+                <line x1="60" y1="32" x2="220" y2="32" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <path d="M230 40 L260 8 L280 28 L300 4 L340 40 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+                <line x1="350" y1="32" x2="540" y2="32" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                <text x="300" y="115" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="78" letter-spacing="6" fill="currentColor">NORTHPEAK</text>
+                <line x1="200" y1="155" x2="240" y2="155" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <text x="300" y="168" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="22" letter-spacing="14" fill="currentColor">STUDIO</text>
+                <line x1="360" y1="155" x2="400" y2="155" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="studioStatus__diary" id="studioDiary">
+          <div class="studioStatus__diaryHead">
+            <span class="studioStatus__diaryDate" id="diaryDate">—</span>
+            <span class="studioStatus__diarySep">·</span>
+            <span class="studioStatus__diaryLoc" data-i18n="diary.loc">w studiu</span>
+          </div>
+          <h3 class="studioStatus__diaryTitle" id="studioStatusTitle" data-i18n="diary.title">Tym tygodniem</h3>
+          <p class="studioStatus__diaryBody" data-i18n="diary.body" data-i18n-html>
+            Iteracja UI na aplikacji dla kierowców. Debugujemy shader na hero, kończymy brief dla nowego klienta. Wracamy do wiadomości w 12h w dni robocze.
+          </p>
+          <div class="studioStatus__diaryPills">
+            <span class="studioStatus__pill studioStatus__pill--coffee">☕ <b id="diaryCoffeeCount">7</b> · <span data-i18n="diary.coffee">kawy dziś</span></span>
+            <span class="studioStatus__pill"><b>14°</b> · <span data-i18n="diary.weather">wieczór, chmurnie</span></span>
+            <span class="studioStatus__pill studioStatus__pill--commit"><b id="diaryCommit">3h</b> · <span data-i18n="diary.commit">od ostatniego commita</span></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================== -->
+    <!-- TRUST STRIP — moved to footer-top, now expanded marquee     -->
+    <!-- ========================================================== -->
+    <section class="trust" aria-label="Partnerzy i inspiracje">
+      <div class="trust__inner">
+        <div class="trust__label">
+          <i></i><span data-i18n="trust.label">Pracujemy z</span>
+        </div>
+        <div class="trust__marqueeWrap">
+          <div class="trust__marquee">
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="-0.04em">Linear</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="18" letter-spacing="-0.04em">Vercel</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="-0.02em" font-style="italic">Stripe</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="0.04em">FRAMER</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Instrument Serif,serif" font-weight="400" font-size="20" font-style="italic">Notion</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 110 24" fill="currentColor"><text x="0" y="18" font-family="JetBrains Mono,monospace" font-weight="600" font-size="14" letter-spacing="0.1em">SUPABASE</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.04em">Figma</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">GitHub</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">Cloudflare</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Instrument Serif,serif" font-weight="400" font-size="19" font-style="italic">Webflow</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 110 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">Spotify</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="JetBrains Mono,monospace" font-weight="600" font-size="13" letter-spacing="0.1em">RAYCAST</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.04em">Posthog</text></svg></span>
+            <span class="trust__sep">·</span>
+            <!-- duplicate set for seamless marquee loop -->
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="-0.04em">Linear</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="18" letter-spacing="-0.04em">Vercel</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="-0.02em" font-style="italic">Stripe</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="18" letter-spacing="0.04em">FRAMER</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Instrument Serif,serif" font-weight="400" font-size="20" font-style="italic">Notion</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 110 24" fill="currentColor"><text x="0" y="18" font-family="JetBrains Mono,monospace" font-weight="600" font-size="14" letter-spacing="0.1em">SUPABASE</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 80 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.04em">Figma</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">GitHub</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">Cloudflare</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Instrument Serif,serif" font-weight="400" font-size="19" font-style="italic">Webflow</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 110 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="17" letter-spacing="-0.04em">Spotify</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 90 24" fill="currentColor"><text x="0" y="18" font-family="JetBrains Mono,monospace" font-weight="600" font-size="13" letter-spacing="0.1em">RAYCAST</text></svg></span>
+            <span class="trust__sep">·</span>
+            <span class="trust__logo"><svg viewBox="0 0 100 24" fill="currentColor"><text x="0" y="18" font-family="Inter,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.04em">Posthog</text></svg></span>
+          </div>
+        </div>
+        <div class="trust__note">
+          <span data-i18n="trust.note">Tooli, którym ufamy. Stack, na którym budujemy.</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <svg viewBox="0 0 600 200" class="footer__logo">
+            <g stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <line x1="60" y1="32" x2="220" y2="32"/>
+              <path d="M230 40 L260 8 L280 28 L300 4 L340 40 Z" fill="none" stroke-linejoin="round"/>
+              <line x1="350" y1="32" x2="540" y2="32"/>
+            </g>
+            <text x="300" y="115" text-anchor="middle" font-family="Inter" font-weight="800" font-size="78" letter-spacing="6" fill="currentColor">NORTHPEAK</text>
+            <g>
+              <line x1="200" y1="155" x2="240" y2="155" stroke="currentColor" stroke-width="2"/>
+              <text x="300" y="168" text-anchor="middle" font-family="Inter" font-weight="500" font-size="22" letter-spacing="14" fill="currentColor">STUDIO</text>
+              <line x1="360" y1="155" x2="400" y2="155" stroke="currentColor" stroke-width="2"/>
+            </g>
+          </svg>
+          <p data-i18n="footer.tagline">Małe studio produktowe. Robimy strony, aplikacje webowe i mobilne, które się bronią.</p>
+
+          <form class="footer__newsletter" id="footerNewsletter" novalidate>
+            <label class="footer__newsletterLabel" for="footerNewsEmail">
+              <span data-i18n="footer.newsletter.title">Studio notes</span>
+              <small data-i18n="footer.newsletter.sub">1 mail miesięcznie · 0 spamu</small>
+            </label>
+            <div class="footer__newsletterRow">
+              <input type="email" id="footerNewsEmail" name="email" placeholder="twoj@email.com" autocomplete="email" required />
+              <button type="submit" class="footer__newsletterBtn" data-magnetic data-cursor="JOIN">
+                <span data-i18n="footer.newsletter.cta">Zapisz</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="footer__contactCta">
+            <a href="mailto:contact@north-peak-studio.com" data-magnetic data-cursor="WRITE">
+              contact@north-peak-studio.com
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <h4 data-i18n="footer.studio">Studio</h4>
+            <a href="#studio">Kim jesteśmy</a>
+            <a href="#process" data-i18n="nav.process">Proces</a>
+            <a href="#work" data-i18n="nav.work">Realizacje</a>
+            <a href="#faq" data-i18n="faq.label">FAQ</a>
+          </div>
+          <div class="footer__col">
+            <h4 data-i18n="footer.services">Usługi</h4>
+            <a href="#services" data-i18n="svc.web.title">Aplikacje webowe</a>
+            <a href="#services" data-i18n="svc.mobile.title">Aplikacje mobilne</a>
+            <a href="#services" data-i18n="svc.mvp.title">MVP produktowe</a>
+            <a href="#services" data-i18n="svc.branding.title">Branding</a>
+          </div>
+          <div class="footer__col">
+            <h4 data-i18n="footer.contact">Kontakt</h4>
+            <a href="mailto:contact@north-peak-studio.com">contact@north-peak-studio.com</a>
+            <a href="https://cal.com/northpeak" target="_blank" rel="noopener noreferrer">cal.com/northpeak</a>
+            <span data-i18n="footer.hours">Pn–Pt · 09:00–17:00</span>
+            <span data-i18n="footer.location">Praca w pełni zdalna</span>
+          </div>
+          <div class="footer__col footer__col--colophon">
+            <h4 data-i18n="footer.kolofon">Kolofon</h4>
+            <span data-i18n="footer.builtWith">Built with Next.js · GSAP · Three.js</span>
+            <span><span data-i18n="footer.lastUpdated">Ostatnia aktualizacja</span> · <span id="footerLastUpdate">2026-05-01</span></span>
+            <span><span data-i18n="footer.version">v2026.05</span> · BUILD <span id="footerBuild">#4a8f2c1</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__sign" aria-hidden="true">
+        <img class="footer__signImg" src="assets/signature.png" alt="" width="280" height="113" loading="lazy" decoding="async" />
+        <span class="footer__signNote" data-i18n="footer.sign">— Bartek, w imieniu zespołu</span>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__bottomLeft">
+          <span>© <span id="year"></span> NorthPeak Studio</span>
+          <span data-i18n="footer.location">Praca w pełni zdalna</span>
+        </div>
+        <div class="footer__bottomRight">
+          <a href="#" data-i18n="footer.legal">Polityka prywatności</a>
+          <a href="#" data-i18n="footer.legal2">Cookies</a>
+          <span data-i18n="footer.crafted">Zaprojektowane i zakodowane w studio</span>
+        </div>
+      </div>
+      <div class="footer__bigword" aria-hidden="true">NORTHPEAK</div>
+    </footer>
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- COOKIE CONSENT BANNER (GDPR-friendly)                         -->
+  <!-- ============================================================ -->
+  <div class="cookie" id="cookieBanner" role="region" aria-label="Cookie consent" aria-hidden="true">
+    <div class="cookie__inner">
+      <div class="cookie__content">
+        <div class="cookie__icon" aria-hidden="true">🍪</div>
+        <div>
+          <div class="cookie__title" data-i18n="cookie.title">Pliki cookie</div>
+          <div class="cookie__msg" data-i18n="cookie.msg">Używamy minimum: tylko niezbędne do działania strony i pamięci preferencji (język, motion). Brak tracking, brak third-party. <a href="#" data-i18n="cookie.more">Dowiedz się więcej</a></div>
+        </div>
+      </div>
+      <div class="cookie__actions">
+        <button type="button" class="cookie__btn cookie__btn--secondary" id="cookieDecline" data-i18n="cookie.decline">Tylko niezbędne</button>
+        <button type="button" class="cookie__btn cookie__btn--primary" id="cookieAccept" data-magnetic data-cursor="OK" data-i18n="cookie.accept">Akceptuję</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- COMMAND PALETTE (⌘K)                                          -->
+  <!-- ============================================================ -->
+  <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="cmdk__backdrop"></div>
+    <div class="cmdk__panel">
+      <div class="cmdk__inputRow">
+        <svg class="cmdk__searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" class="cmdk__input" id="cmdkInput" placeholder="Komenda lub szukaj..." data-i18n-placeholder="cmdk.placeholder" autocomplete="off" spellcheck="false" />
+        <kbd class="cmdk__esc">ESC</kbd>
+      </div>
+      <div class="cmdk__list" id="cmdkList"><!-- populated by JS --></div>
+      <div class="cmdk__footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> <span data-i18n="cmdk.foot.nav">nawigacja</span></span>
+        <span><kbd>↵</kbd> <span data-i18n="cmdk.foot.select">wybierz</span></span>
+        <span><kbd>ESC</kbd> <span data-i18n="cmdk.foot.close">zamknij</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SCRIPTS                                                      -->
+  <!-- ============================================================ -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- Three.js as ES module — eliminates 24× r150+ deprecation warnings.
+       We import only the classes we use, so the engine tree-shakes effectively. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module">
+    import {
+      WebGLRenderer, Scene, OrthographicCamera, PerspectiveCamera,
+      VideoTexture, ShaderMaterial, PlaneGeometry, LineBasicMaterial,
+      WireframeGeometry, MeshBasicMaterial, BufferGeometry, PointsMaterial,
+      Float32BufferAttribute, Mesh, Points, LineSegments, Color, Fog,
+      Vector2, Clock, SRGBColorSpace, LinearFilter
+    } from 'three';
+    // Expose minimal namespace so legacy app.js (uses THREE.WebGLRenderer etc.) keeps working
+    window.THREE = {
+      WebGLRenderer, Scene, OrthographicCamera, PerspectiveCamera,
+      VideoTexture, ShaderMaterial, PlaneGeometry, LineBasicMaterial,
+      WireframeGeometry, MeshBasicMaterial, BufferGeometry, PointsMaterial,
+      Float32BufferAttribute, Mesh, Points, LineSegments, Color, Fog,
+      Vector2, Clock, SRGBColorSpace, LinearFilter
+    };
+    // Notify any waiting init code (loaded via classic <script>) that THREE is ready
+    window.dispatchEvent(new Event('three-ready'));
+  </script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{
+  "name": "NorthPeak Studio",
+  "short_name": "NorthPeak",
+  "description": "Małe studio produktowe. Robimy strony, aplikacje webowe i mobilne, które się bronią.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#0c1410",
+  "theme_color": "#0c1410",
+  "categories": ["business", "productivity", "design"],
+  "lang": "pl",
+  "dir": "ltr",
+  "id": "/",
+  "icons": [
+    {
+      "src": "assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/pwa/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/pwa/icon-monochrome.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/pwa/screenshot-mobile.png",
+      "sizes": "1080x2400",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "NorthPeak Studio — strona startowa"
+    },
+    {
+      "src": "assets/pwa/screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "NorthPeak Studio — desktop"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Skontaktuj się",
+      "short_name": "Kontakt",
+      "description": "Wyślij brief w 4 krokach",
+      "url": "/#contact",
+      "icons": [
+        { "src": "assets/pwa/shortcut-contact.png", "sizes": "96x96" }
+      ]
+    },
+    {
+      "name": "Realizacje",
+      "short_name": "Realizacje",
+      "description": "Zobacz nasze projekty",
+      "url": "/#work",
+      "icons": [
+        { "src": "assets/pwa/shortcut-work.png", "sizes": "96x96" }
+      ]
+    },
+    {
+      "name": "Usługi",
+      "short_name": "Usługi",
+      "description": "Co robimy",
+      "url": "/#services",
+      "icons": [
+        { "src": "assets/pwa/shortcut-services.png", "sizes": "96x96" }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

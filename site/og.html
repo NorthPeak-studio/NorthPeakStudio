@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>OG render</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(255, 184, 146, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 85%, rgba(135, 206, 181, 0.14) 0%, transparent 50%),
+      linear-gradient(160deg, #0c1410 0%, #14201a 60%, #1c2820 100%);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #f5ede1;
+    position: relative;
+    padding: 64px 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  /* Top accent line */
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, #87ceb5 30%, #ffb892 70%, transparent);
+    opacity: 0.8;
+  }
+  /* Subtle grain via repeating dots */
+  body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+  }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #7a786a;
+    z-index: 2;
+  }
+  .topbar .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #87ceb5;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(135, 206, 181, 0.7);
+    vertical-align: middle;
+  }
+  .center { z-index: 2; }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 8px;
+  }
+  .brand__name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 84px;
+    letter-spacing: 8px;
+    color: #f5ede1;
+    line-height: 1;
+  }
+  .brand__sub {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 14px;
+    color: #7a786a;
+    text-transform: uppercase;
+  }
+  .tagline {
+    font-family: 'Instrument Serif', 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 52px;
+    line-height: 1.18;
+    color: #f5ede1;
+    margin-top: 36px;
+    max-width: 920px;
+    letter-spacing: -0.01em;
+  }
+  .tagline em {
+    font-style: italic;
+    color: #ffb892;
+    font-weight: 400;
+  }
+  .tagline .pre {
+    font-style: normal;
+    color: #c2bca8;
+    display: block;
+    font-size: 26px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    color: #c2bca8;
+    z-index: 2;
+  }
+  .chips { display: flex; gap: 14px; }
+  .chip {
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid rgba(245, 237, 225, 0.16);
+    border-radius: 999px;
+    color: #c2bca8;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+  .chip--accent {
+    border-color: rgba(255, 184, 146, 0.5);
+    color: #ffb892;
+  }
+  .url {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: #7a786a;
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <span><span class="dot"></span>NORTH–PEAK–STUDIO · 2026</span>
+    <span>EST. 2026</span>
+  </div>
+
+  <div class="center">
+    <div class="brand">
+      <div class="brand__name">NORTHPEAK</div>
+      <div class="brand__sub">S T U D I O</div>
+    </div>
+    <div class="tagline">
+      <span class="pre">Małe studio produktowe.</span>
+      Robimy strony i aplikacje webowe i mobilne, <em>które się bronią.</em>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="chips">
+      <span class="chip chip--accent">● TERAZ: OCTA</span>
+      <span class="chip">APLIKACJE WEB & MOBILE</span>
+      <span class="chip">MVP · BRANDING</span>
+    </div>
+    <div class="url">north-peak-studio.com</div>
+  </div>
+</body>
+</html>

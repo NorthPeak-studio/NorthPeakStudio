@@ -1,0 +1,43 @@
+## OS
+.DS_Store
+Thumbs.db
+.Spotlight-V100
+.Trashes
+._*
+
+## Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+## Build / deps
+node_modules/
+.pnpm-store/
+dist/
+.next/
+.cache/
+
+## Vercel
+.vercel/
+
+## Env
+.env
+.env.local
+.env.*.local
+
+## Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+.tmp/
+
+## Claude / agents (private)
+.claude/
+.specstory/
+memory/
+
+## Working files (private to local)
+NorthPeakStudioPhotos/
+NorthPeakStudioPhotosMobile/
+scripts/.local/
