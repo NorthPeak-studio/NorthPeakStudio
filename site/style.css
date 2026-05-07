@@ -966,10 +966,25 @@ body.is-loaded main::before { opacity: 1; }
   .hero__topline { display: none; }
   .hero__refStamp { display: none; }
 
-  /* Section heads */
+  /* Section heads — always visible on mobile (skip IO timing issues) */
+  .section-head {
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 3rem var(--pad) 1.6rem !important;
+  }
   .section-head__title { font-size: clamp(2rem, 9vw, 3rem) !important; line-height: 1.06 !important; }
   .section-head__lead { font-size: 0.96rem !important; }
   .section-head__label { font-size: 0.62rem !important; }
+  /* Make data-reveal items always show on mobile too — IO is unreliable */
+  [data-reveal], [data-reveal-words] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-reveal-words] .word-r > span,
+  [data-char-split] .char-r > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
   /* Manifesto */
   .manifest__text { font-size: clamp(1.4rem, 6vw, 2.2rem) !important; line-height: 1.25 !important; }
@@ -978,17 +993,45 @@ body.is-loaded main::before { opacity: 1; }
   .studio__list li h3 { font-size: 1.1rem !important; }
   .studio__list li p { font-size: 0.92rem !important; }
 
-  /* Services cards */
-  .svc { padding: 1.2rem 1rem !important; }
-  .svc__title { font-size: 1.2rem !important; }
-  .svc__body { font-size: 0.9rem !important; }
-  .svc__grid { gap: 1rem; }
+  /* Services rows — stack everything vertically on mobile */
+  .svc { padding: 0 var(--pad) !important; }
+  .svc__row {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+    padding: 1.6rem 0 !important;
+  }
+  .svc__row > * { grid-column: 1 !important; }
+  .svc__no, .svc__icon { display: none !important; }
+  .svc__title h3 { font-size: 1.2rem !important; margin-bottom: 0.3rem; }
+  .svc__title p { font-size: 0.92rem !important; line-height: 1.5; }
+  .svc__detail, .svc__time, .svc__stack { font-size: 0.78rem !important; }
+  .svc__detail::before, .svc__time::before, .svc__stack::before {
+    content: attr(data-label) ' · ';
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7em;
+  }
 
   /* Process — disable scroll-pin on mobile (too long, too laggy) */
   .process { height: auto !important; }
   .process__pin { position: relative !important; height: auto !important; padding: 4rem 0 !important; }
-  .process__steps { display: flex !important; flex-direction: column; gap: 2rem; }
-  .process__steps .step { opacity: 1 !important; transform: none !important; padding: 1.5rem; border: 1px solid var(--line-2); border-radius: 16px; background: color-mix(in srgb, var(--bg-2) 60%, transparent); backdrop-filter: blur(8px); }
+  .process__steps { display: flex !important; flex-direction: column; gap: 1.4rem; min-height: 0 !important; position: relative !important; }
+  .process__steps .step {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    padding: 1.4rem 1.2rem;
+    border: 1px solid var(--line-2);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--bg-2) 75%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .process__head { margin-bottom: 1.6rem; padding: 0 var(--pad); }
+  .process__stepCount { display: none !important; }
   .process__line { display: none !important; }
 
   /* Work cards */
@@ -1924,8 +1967,8 @@ body.is-loading-act .loader__act { opacity: 1; }
   70%, 90%      { opacity: 0.2; }
 }
 
-/* Manifesto lines — IDENTICAL aperture reveal to logo (scaleX 0 → 1).
-   Same transform-origin center, same easing, same duration. */
+/* Manifesto lines — IDENTICAL animation to logo: opacity + translateY +
+   clip-path aperture from middle outward. */
 .loader__actLine {
   font-family: var(--font-display, 'Playfair Display', serif);
   font-size: clamp(1.15rem, 2.3vw, 1.85rem);
@@ -1935,18 +1978,23 @@ body.is-loading-act .loader__act { opacity: 1; }
   margin: 0;
   line-height: 1.4;
   opacity: 0;
-  transform: scaleX(0);
-  transform-origin: center center;
+  transform: translate3d(0, 12px, 0);
+  clip-path: inset(0 50% 0 50%);
+  -webkit-clip-path: inset(0 50% 0 50%);
   display: inline-block;
   transition:
-    opacity 0.6s cubic-bezier(.22,.61,.36,1),
-    transform 1.6s cubic-bezier(.22,.61,.36,1);
+    opacity 1.0s cubic-bezier(.22,.61,.36,1),
+    transform 1.2s cubic-bezier(.22,.61,.36,1),
+    clip-path 1.6s cubic-bezier(.22,.61,.36,1),
+    -webkit-clip-path 1.6s cubic-bezier(.22,.61,.36,1);
   text-shadow: 0 0 20px color-mix(in srgb, var(--ink) 16%, transparent);
-  will-change: transform, opacity;
+  will-change: transform, opacity, clip-path;
 }
 .loader__actLine.is-shown {
   opacity: 1;
-  transform: scaleX(1);
+  transform: translate3d(0, 0, 0);
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
 }
 .loader__actLine--4 {
   font-style: italic;
@@ -1992,25 +2040,29 @@ body.is-loading-act .loader__subRule {
 }
 
 /* ============================================================
-   CINEMATIC INTRO — logo + lines OPEN FROM MIDDLE via scaleX.
-   transform-origin: center → element grows from 0 width outward
-   on both sides simultaneously. This is THE classic "aperture"
-   reveal and it works identically in every browser.
+   CINEMATIC INTRO — logo + manifesto lines = IDENTICAL animation.
+   Each element wrapped in implicit "aperture" via clip-path that
+   animates from inset(0 50% 0 50%) — element clipped to 0 width
+   in middle — to inset(0 0 0 0) full reveal. Combined with
+   opacity + translateY for graceful entry.
    ============================================================ */
 .loader__mark,
 .loader__word,
 .loader__sub {
   opacity: 0;
-  transform: scaleX(0);
-  transform-origin: center center;
+  transform: translate3d(0, 12px, 0);
+  clip-path: inset(0 50% 0 50%);
+  -webkit-clip-path: inset(0 50% 0 50%);
   transition:
-    opacity 0.6s cubic-bezier(.22,.61,.36,1),
-    transform 1.6s cubic-bezier(.22,.61,.36,1);
+    opacity 1.0s cubic-bezier(.22,.61,.36,1),
+    transform 1.2s cubic-bezier(.22,.61,.36,1),
+    clip-path 1.6s cubic-bezier(.22,.61,.36,1),
+    -webkit-clip-path 1.6s cubic-bezier(.22,.61,.36,1);
   animation: none !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  will-change: transform, opacity;
+  will-change: transform, opacity, clip-path;
 }
 .loader__path { animation: none !important; stroke-dashoffset: 0 !important; }
 .loader__subRule { animation: none !important; width: 28px; }
@@ -2020,7 +2072,9 @@ body.is-loading-act .loader__subRule {
 .loader__word.is-act-shown,
 .loader__sub.is-act-shown {
   opacity: 1;
-  transform: scaleX(1);
+  transform: translate3d(0, 0, 0);
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
 }
 .loader__sub.is-act-shown { opacity: 0.85; }
 .loader__word.is-act-shown {
@@ -3725,7 +3779,25 @@ html[data-lang="en"] .lang__pill { left: calc(50% + 0px); }
 }
 /* Mobile: shorter pin so steps don't take forever to scroll through */
 @media (max-width: 768px) {
-  .process { height: 320vh; }
+  /* Process unpinned on mobile — let steps stack natural height */
+  .process { height: auto !important; }
+  .process__pin { position: relative !important; height: auto !important; padding: 3rem 0 !important; min-height: 0 !important; }
+  .process__bg { display: none !important; }
+  .process__line { display: none !important; }
+
+  /* SVC row — single column on mobile, NO icon/no */
+  .svc__row {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    grid-template-areas: none !important;
+    gap: 0.6rem !important;
+    padding: 1.5rem 0 1.6rem !important;
+  }
+  .svc__no, .svc__icon { display: none !important; }
+  .svc__title { grid-area: auto !important; margin-top: 0 !important; }
+  .svc__deliv, .svc__time, .svc__stack { grid-area: auto !important; padding-top: 0.4rem !important; text-align: left !important; }
+  .svc__row::before { display: none !important; }
 }
 .process__pin {
   position: sticky; top: 0;
