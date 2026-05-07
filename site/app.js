@@ -281,11 +281,20 @@
         const sub = loader.querySelector('.loader__sub');
 
         // Staggered logo entry — IDENTICAL pacing to manifesto lines below.
-        // 700ms gap between elements (matches LINE_GAP feel) so logo and
-        // lines feel like one continuous typography reveal.
-        setTimeout(() => mark?.classList.add('is-act-shown'), 700);
-        setTimeout(() => word?.classList.add('is-act-shown'), 1400);
-        setTimeout(() => sub?.classList.add('is-act-shown'), 2100);
+        // Force a reflow on each element BEFORE adding the trigger class so
+        // the animation always starts from the hidden state (some browsers
+        // skip the keyframe if class is added in same frame as initial paint).
+        const showAfter = (el, delay) => {
+          if (!el) return;
+          setTimeout(() => {
+            // Force reflow — guarantees animation runs from 0%
+            void el.offsetWidth;
+            el.classList.add('is-act-shown');
+          }, delay);
+        };
+        showAfter(mark, 700);
+        showAfter(word, 1400);
+        showAfter(sub, 2100);
 
         // === ACT II.c — manifesto lines stagger after logo lands ===
         const lines = Array.from(loader.querySelectorAll('.loader__actLine'));
