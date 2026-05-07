@@ -6,7 +6,7 @@
  *   - Skip non-GET, skip cross-origin
  */
 
-const VERSION = 'nps-2026-05-04-v1';
+const VERSION = 'nps-2026-05-07-v2';
 const STATIC_CACHE = `static-${VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${VERSION}`;
 const HTML_CACHE = `html-${VERSION}`;
@@ -15,6 +15,7 @@ const HTML_CACHE = `html-${VERSION}`;
 const SHELL_ASSETS = [
   '/',
   '/index.html',
+  '/offline.html',
   '/style.css',
   '/app.js',
   '/i18n.js',
@@ -22,10 +23,14 @@ const SHELL_ASSETS = [
   '/assets/logo.svg',
   '/assets/signature.png',
   '/assets/octa-logo.png',
+  '/assets/pwa/icon-192.png',
+  '/assets/pwa/icon-512.png',
+  '/assets/pwa/apple-touch-icon.png',
+  '/assets/pwa/favicon-32.png',
 ];
 
-// Offline fallback page (uses cached homepage)
-const OFFLINE_URL = '/index.html';
+// Offline fallback — branded page when network fails
+const OFFLINE_URL = '/offline.html';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

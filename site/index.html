@@ -54,6 +54,17 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
   <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/pwa/apple-touch-icon.png" />
+
+  <!-- iOS PWA splash screens — branded launch on Add to Home Screen -->
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="assets/pwa/splash/splash-1290x2796.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="assets/pwa/splash/splash-1179x2556.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="assets/pwa/splash/splash-1170x2532.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="assets/pwa/splash/splash-1290x2796.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" href="assets/pwa/splash/splash-828x1792.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="assets/pwa/splash/splash-750x1334.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="assets/pwa/splash/splash-2048x2732.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" href="assets/pwa/splash/splash-1668x2388.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2)" href="assets/pwa/splash/splash-1620x2160.png" />
   <link rel="mask-icon" href="assets/logo.svg" color="#ff6b2b" />
 
   <!-- Robots / SEO -->
@@ -118,6 +129,16 @@
     </svg>
     <span class="pwaInstall__label" data-i18n="pwa.install">Zainstaluj</span>
   </button>
+
+  <!-- PWA update banner — appears when new SW version installed -->
+  <div class="pwaUpdate" id="pwaUpdateBanner" role="status" aria-live="polite">
+    <div class="pwaUpdate__inner">
+      <span class="pwaUpdate__dot" aria-hidden="true"></span>
+      <span class="pwaUpdate__text" data-i18n="pwa.update.text">Dostępna nowa wersja</span>
+      <button type="button" class="pwaUpdate__btn pwaUpdate__btn--primary" data-update-now data-i18n="pwa.update.now">Odśwież</button>
+      <button type="button" class="pwaUpdate__btn" data-update-later aria-label="Odłóż" data-i18n="pwa.update.later">Później</button>
+    </div>
+  </div>
 
   <!-- iOS install instructions sheet — shown when iOS user clicks install -->
   <div class="pwaIOSSheet" id="pwaIOSSheet" role="dialog" aria-modal="true" aria-labelledby="pwaIOSTitle" aria-hidden="true">

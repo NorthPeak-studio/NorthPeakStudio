@@ -562,21 +562,25 @@ body.is-loaded main::before { opacity: 1; }
    ============================================================ */
 .pwaInstall {
   position: fixed;
-  left: clamp(1rem, 2.5vw, 2rem);
-  bottom: clamp(1.4rem, 3vw, 2.4rem);
+  left: max(clamp(1rem, 2.5vw, 2rem), env(safe-area-inset-left));
+  bottom: max(clamp(1.4rem, 3vw, 2.4rem), env(safe-area-inset-bottom));
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 1.1rem 0.7rem 0.9rem;
-  background: color-mix(in srgb, var(--bg) 70%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid var(--line-2);
+  gap: 0.6rem;
+  padding: 0.85rem 1.3rem 0.85rem 1rem;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 16%, var(--bg) 84%) 0%,
+      color-mix(in srgb, var(--bg) 90%, transparent) 100%);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line-2));
   border-radius: 999px;
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
   z-index: 80;
@@ -587,8 +591,22 @@ body.is-loaded main::before { opacity: 1; }
     opacity 480ms var(--ease-power),
     transform 540ms cubic-bezier(.2,.8,.2,1),
     visibility 0s 480ms,
-    border-color 320ms ease, color 320ms ease;
-  box-shadow: 0 10px 32px -16px rgba(0,0,0,0.5);
+    border-color 320ms ease, color 320ms ease, background 320ms ease;
+  box-shadow:
+    0 12px 32px -14px rgba(0,0,0,0.55),
+    0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+    0 0 28px -8px color-mix(in srgb, var(--accent) 30%, transparent);
+  min-height: 44px;
+}
+.pwaInstall::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
 }
 .pwaInstall.is-visible {
   opacity: 1;
@@ -598,13 +616,20 @@ body.is-loaded main::before { opacity: 1; }
     opacity 600ms var(--ease-power),
     transform 600ms cubic-bezier(.2,.8,.2,1),
     visibility 0s,
-    border-color 320ms ease, color 320ms ease;
+    border-color 320ms ease, color 320ms ease, background 320ms ease;
+  animation: pwaInstallBreath 4s ease-in-out 1.2s infinite;
+}
+@keyframes pwaInstallBreath {
+  0%, 100% { box-shadow: 0 12px 32px -14px rgba(0,0,0,0.55), 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent), 0 0 28px -8px color-mix(in srgb, var(--accent) 30%, transparent); }
+  50%      { box-shadow: 0 16px 40px -16px rgba(0,0,0,0.6),  0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent), 0 0 44px -8px color-mix(in srgb, var(--accent) 50%, transparent); }
 }
 .pwaInstall:hover {
   border-color: var(--accent);
   color: var(--accent);
   transform: translateY(-2px) scale(1.02);
+  animation: none;
 }
+.pwaInstall:hover::before { opacity: 1; }
 .pwaInstall:focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 3px;
@@ -613,12 +638,99 @@ body.is-loaded main::before { opacity: 1; }
   opacity: 0.6;
   pointer-events: none;
 }
+.pwaInstall.is-loading svg { animation: pwaInstallSpin 0.8s linear infinite; }
+@keyframes pwaInstallSpin { to { transform: rotate(360deg); } }
 .pwaInstall svg {
   width: 16px; height: 16px;
   stroke: currentColor;
+  flex-shrink: 0;
 }
+.pwaInstall__label { position: relative; z-index: 1; }
 /* Hide install button when running as installed PWA */
 :root.is-pwa .pwaInstall { display: none !important; }
+
+/* ============================================================
+   PWA UPDATE BANNER — appears when new SW version installed
+   ============================================================ */
+.pwaUpdate {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%) translateY(-160%);
+  z-index: 150;
+  pointer-events: none;
+  transition: transform 540ms cubic-bezier(.2,.8,.2,1);
+  padding: 0 1rem;
+  max-width: 100%;
+  width: max-content;
+}
+.pwaUpdate.is-visible {
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.pwaUpdate__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.7rem 0.65rem 1rem;
+  background: color-mix(in srgb, var(--bg-2) 92%, transparent);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line-2));
+  border-radius: 999px;
+  box-shadow:
+    0 12px 36px -12px rgba(0,0,0,0.45),
+    0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.pwaUpdate__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+  animation: pwaPulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pwaPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.7); opacity: 0.5; }
+}
+.pwaUpdate__text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.pwaUpdate__btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 36px;
+  white-space: nowrap;
+  transition: all 240ms ease;
+}
+.pwaUpdate__btn:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.pwaUpdate__btn--primary {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+.pwaUpdate__btn--primary:hover {
+  background: color-mix(in srgb, var(--accent) 80%, white);
+  color: var(--bg);
+}
+@media (max-width: 480px) {
+  .pwaUpdate__text { display: none; }
+  .pwaUpdate__btn { font-size: 0.62rem; padding: 0.5rem 0.75rem; }
+}
 
 /* ============================================================
    iOS install instructions sheet — bottom sheet for Safari mobile
@@ -773,18 +885,48 @@ body.is-loaded main::before { opacity: 1; }
 
 /* ============================================================
    PWA STANDALONE MODE — when running as installed app
-   - safe-area insets for iPhone notch / Android cutouts
-   - hide browser-only UI (lang toggle, theme — keep them)
    ============================================================ */
 :root.is-pwa body {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+  /* Don't pad body — kills full-bleed hero. Use safe-area on individual
+     elements instead. */
 }
-:root.is-pwa .header,
-:root.is-pwa header {
-  padding-top: env(safe-area-inset-top);
+:root.is-pwa header,
+:root.is-pwa .nav {
+  padding-top: max(0.7rem, env(safe-area-inset-top)) !important;
+}
+:root.is-pwa .footer {
+  padding-bottom: max(2rem, env(safe-area-inset-bottom)) !important;
+}
+:root.is-pwa .backToTop,
+:root.is-pwa .pwaInstall {
+  bottom: max(1.4rem, env(safe-area-inset-bottom)) !important;
+}
+
+/* Window Controls Overlay support — desktop PWA can have OS-native title bar */
+@supports (padding: env(titlebar-area-height)) {
+  :root.is-pwa header,
+  :root.is-pwa .nav {
+    padding-top: env(titlebar-area-height, env(safe-area-inset-top));
+    padding-left: env(titlebar-area-x, env(safe-area-inset-left));
+    padding-right: calc(100vw - env(titlebar-area-width, 100vw) - env(titlebar-area-x, 0));
+    -webkit-app-region: drag;
+  }
+  :root.is-pwa .nav__cta,
+  :root.is-pwa .lang,
+  :root.is-pwa .themeToggle,
+  :root.is-pwa .nav a,
+  :root.is-pwa button {
+    -webkit-app-region: no-drag;
+  }
+}
+
+/* iOS PWA: fullscreen black-translucent status bar — body needs top padding */
+@media (display-mode: standalone) {
+  body { padding-top: env(safe-area-inset-top); }
+  /* Hide install button — already installed */
+  .pwaInstall { display: none !important; }
+  /* Disable browser-only UI */
+  .nav__time { display: none; }
 }
 
 /* ============================================================

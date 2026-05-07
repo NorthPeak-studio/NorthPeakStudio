@@ -91,29 +91,56 @@
   function initPWA() {
     // Register service worker (only on https or localhost — required by browsers)
     if ('serviceWorker' in navigator) {
-      // Defer until window load so it doesn't compete with critical resources
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js', { scope: '/' })
           .then((reg) => {
-            // If a waiting SW exists, prompt update via toast
-            if (reg.waiting) {
-              window.__npToast?.('Nowa wersja gotowa — odśwież');
+            // Persist registration for use elsewhere (update prompt, etc.)
+            window.__npSW = reg;
+
+            const showUpdatePrompt = (worker) => {
+              const banner = document.querySelector('#pwaUpdateBanner');
+              if (!banner) return;
+              banner.classList.add('is-visible');
+              banner.querySelector('[data-update-now]')?.addEventListener('click', () => {
+                if (worker) worker.postMessage('SKIP_WAITING');
+                else if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
+                banner.classList.remove('is-visible');
+                // Reload after the SW switches over
+                setTimeout(() => location.reload(), 400);
+              }, { once: true });
+              banner.querySelector('[data-update-later]')?.addEventListener('click', () => {
+                banner.classList.remove('is-visible');
+              }, { once: true });
+            };
+
+            // SW is already waiting on load (page was previously visited)
+            if (reg.waiting && navigator.serviceWorker.controller) {
+              showUpdatePrompt(reg.waiting);
             }
-            // Listen for new updates
+
+            // New SW becoming available during this session
             reg.addEventListener('updatefound', () => {
               const sw = reg.installing;
               if (!sw) return;
               sw.addEventListener('statechange', () => {
                 if (sw.state === 'installed' && navigator.serviceWorker.controller) {
-                  // New version is available
-                  if (typeof window.__npToast === 'function') {
-                    window.__npToast('Nowa wersja zainstalowana');
-                  }
+                  showUpdatePrompt(sw);
                 }
               });
             });
+
+            // Reload when controller changes (new SW activated)
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              if (refreshing) return;
+              refreshing = true;
+              location.reload();
+            });
+
+            // Periodic update check every 30 min for long sessions
+            setInterval(() => { reg.update?.(); }, 30 * 60 * 1000);
           })
-          .catch(() => { /* fail silently — site still works */ });
+          .catch(() => { /* fail silently */ });
       });
     }
 
