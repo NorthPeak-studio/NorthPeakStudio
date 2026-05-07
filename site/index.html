@@ -118,6 +118,32 @@
     </svg>
     <span class="pwaInstall__label" data-i18n="pwa.install">Zainstaluj</span>
   </button>
+
+  <!-- iOS install instructions sheet — shown when iOS user clicks install -->
+  <div class="pwaIOSSheet" id="pwaIOSSheet" role="dialog" aria-modal="true" aria-labelledby="pwaIOSTitle" aria-hidden="true">
+    <div class="pwaIOSSheet__backdrop" data-close></div>
+    <div class="pwaIOSSheet__panel">
+      <button type="button" class="pwaIOSSheet__close" data-close aria-label="Zamknij">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="pwaIOSSheet__icon">
+        <img src="assets/pwa/apple-touch-icon.png" alt="" width="64" height="64" />
+      </div>
+      <h3 id="pwaIOSTitle" class="pwaIOSSheet__title" data-i18n="pwa.ios.title">Dodaj do ekranu głównego</h3>
+      <p class="pwaIOSSheet__lead" data-i18n="pwa.ios.lead">NorthPeak Studio na Twoim telefonie — w 2 krokach.</p>
+      <ol class="pwaIOSSheet__steps">
+        <li>
+          <span class="pwaIOSSheet__num">1</span>
+          <span class="pwaIOSSheet__stepText" data-i18n="pwa.ios.s1" data-i18n-html>Stuknij <b>Udostępnij</b> <svg class="pwaIOSSheet__inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 16V4M8 8l4-4 4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg> na dolnym pasku Safari</span>
+        </li>
+        <li>
+          <span class="pwaIOSSheet__num">2</span>
+          <span class="pwaIOSSheet__stepText" data-i18n="pwa.ios.s2" data-i18n-html>Wybierz <b>„Do ekranu głównego”</b> <svg class="pwaIOSSheet__inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg></span>
+        </li>
+      </ol>
+      <button type="button" class="pwaIOSSheet__cta" data-close data-i18n="pwa.ios.got">Rozumiem</button>
+    </div>
+  </div>
   <!-- Reveal flash overlay — fires when intro completes, white burst → fade -->
   <div class="revealFlash" id="revealFlash" aria-hidden="true"></div>
 

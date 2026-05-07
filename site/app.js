@@ -117,53 +117,75 @@
       });
     }
 
-    // Install prompt — capture event, expose UI button
+    // Detect platform — iOS Safari needs different install flow
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isInStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true;
+    const isMobile = /Mobi|Android/i.test(ua) || isIOS;
+
+    if (isInStandalone) {
+      document.documentElement.classList.add('is-pwa');
+      return; // already installed, nothing to prompt
+    }
+
     let deferredPrompt = null;
     const installBtn = document.querySelector('#pwaInstallBtn');
+    const iosSheet = document.querySelector('#pwaIOSSheet');
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      // Show subtle install button only after user has scrolled (engagement)
-      if (installBtn && window.scrollY > window.innerHeight) {
+      if (installBtn && window.scrollY > window.innerHeight * 0.5) {
         installBtn.classList.add('is-visible');
       }
     });
 
-    // Show button after hero scroll past
     if (installBtn) {
+      // Mobile: show button sooner (people decide faster on phones)
+      const threshold = isMobile ? 0.4 : 0.8;
       const showAfterScroll = () => {
-        if (deferredPrompt && window.scrollY > window.innerHeight * 0.8) {
-          installBtn.classList.add('is-visible');
-          window.removeEventListener('scroll', showAfterScroll);
+        if (window.scrollY > window.innerHeight * threshold) {
+          if (deferredPrompt || isIOS) {
+            installBtn.classList.add('is-visible');
+            window.removeEventListener('scroll', showAfterScroll);
+          }
         }
       };
       window.addEventListener('scroll', showAfterScroll, { passive: true });
 
       installBtn.addEventListener('click', async () => {
+        // iOS Safari: no beforeinstallprompt — show instructions sheet
+        if (isIOS && iosSheet) {
+          iosSheet.classList.add('is-open');
+          return;
+        }
         if (!deferredPrompt) return;
         installBtn.classList.add('is-loading');
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
+        try {
+          await deferredPrompt.prompt();
+          const choice = await deferredPrompt.userChoice;
+          if (choice.outcome === 'accepted') {
+            installBtn.classList.remove('is-visible');
+            deferredPrompt = null;
+          }
+        } catch (e) { /* user dismissed */ }
         installBtn.classList.remove('is-loading');
-        if (choice.outcome === 'accepted') {
-          installBtn.classList.remove('is-visible');
-          deferredPrompt = null;
-        }
       });
     }
 
-    // Hide button if app already installed
+    // iOS sheet close handler
+    if (iosSheet) {
+      iosSheet.querySelectorAll('[data-close]').forEach((el) => {
+        el.addEventListener('click', () => iosSheet.classList.remove('is-open'));
+      });
+    }
+
     window.addEventListener('appinstalled', () => {
       if (installBtn) installBtn.classList.remove('is-visible');
       deferredPrompt = null;
     });
-
-    // Detect if running as installed PWA (display-mode: standalone)
-    if (window.matchMedia('(display-mode: standalone)').matches ||
-        window.navigator.standalone === true) {
-      document.documentElement.classList.add('is-pwa');
-    }
   }
 
   /* -------------------------------------------------------
@@ -269,7 +291,6 @@
       // Act III : decisive white flash → blur dissolve → hero
       // ============================================================
       const cinemaPlay = () => {
-        // Lock scroll throughout the intro
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
 
@@ -285,19 +306,21 @@
           setTimeout(() => el.classList.add('is-act-shown'), delay);
         };
 
-        // TIGHT TIMELINE — feels confident, ~5s total
-        show(mark, 200);
-        show(word, 450);
-        show(sub, 750);
+        // CINEMATIC TIMELINE — restored longer, more dramatic pacing
+        // Logo opens from middle (scaleX 0→1, 1.6s) one element at a time
+        show(mark, 400);
+        show(word, 1000);
+        show(sub, 1700);
 
-        const LINE_GAP = 450;
-        const LINES_BASE = 1400;
+        // Lines start AFTER logo block lands (sub @ 1700 + 1.6s = 3300)
+        const LINE_GAP = 700;
+        const LINES_BASE = 3000;
         lines.forEach((line, i) => {
           setTimeout(() => line.classList.add('is-shown'), LINES_BASE + i * LINE_GAP);
         });
 
-        // After last line lands, hold ~700ms then flash
-        const ACT_II_END = LINES_BASE + lines.length * LINE_GAP + 700;
+        // After last line + 1s linger → flash
+        const ACT_II_END = LINES_BASE + lines.length * LINE_GAP + 1000;
         setTimeout(() => triggerFlashAndExit(), ACT_II_END);
       };
 
