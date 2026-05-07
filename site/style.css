@@ -647,75 +647,137 @@ body.is-loaded main::before { opacity: 1; }
 }
 
 /* ============================================================
-   MOBILE / TABLET RESPONSIVE TWEAKS
+   MOBILE / TABLET RESPONSIVE — full rewrite, tight + readable
    ============================================================ */
 @media (max-width: 768px) {
-  /* Tighter intro letterbox on small screens */
-  body.is-loading-act .loader__letterbox { height: 6vh; }
-
-  /* Logo position scales for short screens */
+  /* INTRO — no letterbox on phones (looks claustrophobic), full bleed */
+  body.is-loading-act .loader__letterbox { height: 0 !important; }
   body.is-loading-act .loader__content {
-    top: 14vh;
-    transform: translateX(-50%) scale(0.7);
+    top: 22%;
+    transform: translateX(-50%) scale(1);
+    width: 90%;
   }
+  .loader__word {
+    font-size: clamp(1.6rem, 8.5vw, 2.4rem) !important;
+    letter-spacing: 0.3em !important;
+  }
+  .loader__sub { font-size: 0.62rem !important; letter-spacing: 0.4em !important; }
+  .loader__mark { width: 64px !important; }
+  .loader__act { top: 56% !important; padding: 0 1.2rem; gap: 0.5rem !important; }
+  .loader__actMeta { font-size: 0.55rem !important; margin-bottom: 1.2rem !important; letter-spacing: 0.22em !important; }
+  .loader__actLine { font-size: clamp(1.1rem, 5.2vw, 1.5rem); line-height: 1.35; }
 
-  /* Manifesto lines smaller on mobile */
-  .loader__actLine {
-    font-size: clamp(1rem, 4.4vw, 1.5rem);
-  }
-  .loader__act { gap: 0.3rem; }
-  .loader__actMeta {
-    font-size: 0.58rem;
-    margin-bottom: 1.2rem;
-  }
+  /* PAGE — relaxed but tight */
+  :root { --pad: 1.1rem; }
 
-  /* Hero meta stacks on small screens */
+  /* Hero — readable, not cramped */
+  .hero__title { font-size: clamp(2.4rem, 11vw, 4rem) !important; line-height: 1.04 !important; }
+  .hero__lead { font-size: 0.96rem !important; line-height: 1.55 !important; }
   .hero__meta {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.6rem;
     text-align: left;
+    font-size: 0.7rem;
   }
+  .hero__meta strong { font-size: 1.4rem !important; }
+  .hero__topline { display: none; }
+  .hero__refStamp { display: none; }
 
-  /* Wizard padding tighter on mobile */
-  .wizard {
-    padding: 1.4rem 1.1rem;
-  }
-  .wizard__choice {
-    padding: 0.7rem 0.95rem;
-    font-size: 0.88rem;
-  }
+  /* Section heads */
+  .section-head__title { font-size: clamp(2rem, 9vw, 3rem) !important; line-height: 1.06 !important; }
+  .section-head__lead { font-size: 0.96rem !important; }
+  .section-head__label { font-size: 0.62rem !important; }
 
-  /* Studio status panel — tighter padding on mobile */
+  /* Manifesto */
+  .manifest__text { font-size: clamp(1.4rem, 6vw, 2.2rem) !important; line-height: 1.25 !important; }
+
+  /* Studio principles + anti-list */
+  .studio__list li h3 { font-size: 1.1rem !important; }
+  .studio__list li p { font-size: 0.92rem !important; }
+
+  /* Services cards */
+  .svc { padding: 1.2rem 1rem !important; }
+  .svc__title { font-size: 1.2rem !important; }
+  .svc__body { font-size: 0.9rem !important; }
+  .svc__grid { gap: 1rem; }
+
+  /* Process — disable scroll-pin on mobile (too long, too laggy) */
+  .process { height: auto !important; }
+  .process__pin { position: relative !important; height: auto !important; padding: 4rem 0 !important; }
+  .process__steps { display: flex !important; flex-direction: column; gap: 2rem; }
+  .process__steps .step { opacity: 1 !important; transform: none !important; padding: 1.5rem; border: 1px solid var(--line-2); border-radius: 16px; background: color-mix(in srgb, var(--bg-2) 60%, transparent); backdrop-filter: blur(8px); }
+  .process__line { display: none !important; }
+
+  /* Work cards */
+  .work__card { padding: 1.4rem 1.2rem !important; }
+  .work__cardTitle { font-size: 1.2rem !important; }
+
+  /* Stack grid columns → 2 → 1 */
+  .stackGrid { grid-template-columns: 1fr !important; gap: 2rem; }
+
+  /* FAQ */
+  .faq__item { padding: 1.2rem 1rem !important; }
+  .faq__q { font-size: 1rem !important; }
+
+  /* CTA + wizard */
+  .cta__title { font-size: clamp(2rem, 9vw, 3rem) !important; line-height: 1.05 !important; }
+  .cta__lead { font-size: 0.94rem !important; }
+  .cta__split { grid-template-columns: 1fr !important; gap: 2.5rem; }
+  .wizard { padding: 1.4rem 1rem !important; }
+  .wizard__choice { padding: 0.75rem 1rem; font-size: 0.92rem; min-height: 48px; display: flex; align-items: center; }
+  .cta__email { padding: 1rem !important; }
+  .cta__emailValue { font-size: 0.85rem !important; word-break: break-all; }
+
+  /* Studio status */
   .studioStatus__inner { padding: 1.2rem 1rem; }
-  .studioStatus__showcase { padding: 1.1rem 0.9rem; }
+  .studioStatus__showcase { grid-template-columns: 1fr !important; padding: 1rem !important; gap: 1rem; }
+  .studioStatus__row--now { font-size: 0.62rem !important; flex-wrap: wrap; }
+  .studioStatus__diaryBody { font-size: 0.92rem !important; }
 
-  /* Footer back-to-top + install — stack vertically */
-  .pwaInstall { font-size: 0.62rem; padding: 0.55rem 0.85rem; }
+  /* Trust marquee */
+  .trust__logo svg { font-size: 0.78em; }
+  .trust__label span { font-size: 0.6rem !important; }
 
-  /* Service cards stack better */
-  .svc__grid { gap: 1.4rem; }
+  /* Floating buttons — bottom positioning */
+  .pwaInstall { font-size: 0.6rem; padding: 0.55rem 0.85rem; bottom: 1rem; left: 1rem; }
+  .backToTop { width: 42px; height: 42px; bottom: 1rem; right: 1rem; }
 
-  /* Trust marquee smaller on mobile */
-  .trust__logo svg { font-size: 0.85em; }
+  /* Nav header — much more compact */
+  .nav, header.siteHeader { padding: 0.7rem 1rem !important; }
+  .nav__cta { padding: 0.5rem 0.9rem; font-size: 0.78rem; }
+  .nav__cta svg { width: 14px; height: 14px; }
+  .nav__time, .nav__cmd { display: none; }
+
+  /* Footer */
+  .footer { padding: 3rem 1.2rem 2rem !important; }
+  .footer__top { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
+  .footer__bottom { grid-template-columns: 1fr; gap: 1rem; }
+
+  /* Dividers — tighter */
+  .divider { padding: 0.8rem var(--pad) !important; }
+
+  /* Hide some decorative stuff that hurts on mobile */
+  .alpineMist { height: 12vh !important; opacity: 0.3 !important; }
+  .fairyParticles__dot:nth-child(n+5) { display: none; }
 }
 
 @media (max-width: 480px) {
-  /* Smallest screens — extreme compression */
-  body.is-loading-act .loader__content {
-    top: 12vh;
-    transform: translateX(-50%) scale(0.6);
-  }
-  .loader__actLine {
-    font-size: clamp(0.95rem, 4vw, 1.3rem);
-  }
+  body.is-loading-act .loader__content { top: 24%; width: 92%; }
+  .loader__word { font-size: clamp(1.4rem, 8.5vw, 2rem) !important; letter-spacing: 0.28em !important; }
+  .loader__act { top: 58% !important; }
+  .loader__actLine { font-size: clamp(1rem, 4.8vw, 1.35rem) !important; }
+  .hero__meta { grid-template-columns: 1fr; }
+  .footer__top { grid-template-columns: 1fr !important; }
 }
 
-/* Tablet portrait — between mobile and desktop */
+/* Tablet portrait */
 @media (min-width: 769px) and (max-width: 1024px) {
-  body.is-loading-act .loader__letterbox { height: 7vh; }
+  body.is-loading-act .loader__letterbox { height: 6vh; }
   body.is-loading-act .loader__content {
-    transform: translateX(-50%) scale(0.78);
+    transform: translateX(-50%) scale(0.85);
+    top: 14vh;
   }
+  .loader__act { top: 52% !important; }
 }
 
 /* Touch-specific — bigger tap targets, no hover */
@@ -1567,37 +1629,25 @@ body.is-loading-act .loader__act { opacity: 1; }
   70%, 90%      { opacity: 0.2; }
 }
 
-/* Manifesto lines — slow cinematic fade + clip-reveal + tracking-in.
-   GPU-accelerated, longer eases for a buttery, professional feel. */
+/* Manifesto lines — simple opacity + rise. Same as logo, same easing. */
 .loader__actLine {
   font-family: var(--font-display, 'Playfair Display', serif);
-  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  font-size: clamp(1.15rem, 2.3vw, 1.85rem);
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.005em;
   color: var(--ink);
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.4;
   opacity: 0;
-  transform: translate3d(0, 18px, 0) scale(0.97);
-  filter: blur(8px);
-  clip-path: inset(0 50% 0 50%);
-  will-change: opacity, transform, filter, clip-path, letter-spacing;
+  transform: translate3d(0, 14px, 0);
   transition:
-    opacity 1.4s cubic-bezier(.22,.61,.36,1),
-    transform 1.6s cubic-bezier(.22,.61,.36,1),
-    filter 1.4s cubic-bezier(.22,.61,.36,1),
-    letter-spacing 1.8s cubic-bezier(.22,.61,.36,1),
-    clip-path 1.8s cubic-bezier(.22,.61,.36,1);
-  text-shadow: 0 0 24px color-mix(in srgb, var(--ink) 18%, transparent);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
+    opacity 0.9s cubic-bezier(.22,.61,.36,1),
+    transform 1.0s cubic-bezier(.22,.61,.36,1);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--ink) 16%, transparent);
 }
 .loader__actLine.is-shown {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  filter: blur(0);
-  letter-spacing: -0.005em;
-  clip-path: inset(0 0 0 0);
+  transform: translate3d(0, 0, 0);
 }
 .loader__actLine--4 {
   font-style: italic;
@@ -1642,125 +1692,47 @@ body.is-loading-act .loader__subRule {
   width: 28px;
 }
 
-/* Cinematic entry for logo block — IDENTICAL animation pattern as manifesto
-   lines. Hidden state lives on .loader__mark/word/sub (no class needed) so
-   it persists across body class changes; .is-act-shown reveals.
-   Initial CSS animations (loaderWordIn, loaderDraw etc.) are killed below. */
-/* IDENTICAL hidden state as .loader__actLine — same display, same transform-origin,
-   same clip-path. Inline-block ensures clip-path apertures from text bbox center,
-   exactly matching the manifesto-line behavior. */
+/* ============================================================
+   SIMPLE INTRO (rewrite) — clean opacity + slight rise.
+   No clip-path tricks, no letter-spacing tweens, no SVG draw races.
+   Works identically across all browsers, all viewports.
+   ============================================================ */
 .loader__mark,
 .loader__word,
 .loader__sub {
   opacity: 0;
-  filter: blur(8px);
-  transform: translate3d(0, 18px, 0) scale(0.97);
-  clip-path: inset(0 50% 0 50%);
-  -webkit-clip-path: inset(0 50% 0 50%);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  text-shadow: 0 0 24px color-mix(in srgb, var(--ink) 18%, transparent);
-  display: inline-block;
-  transform-origin: center center;
-  animation: none;
-}
-.loader__word { letter-spacing: 0.65em; }
-.loader__sub { letter-spacing: 0.75em; }
-.loader__mark { overflow: visible; }
-.loader__path {
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.9s cubic-bezier(.22,.61,.36,1),
+    transform 1.0s cubic-bezier(.22,.61,.36,1);
   animation: none !important;
-  stroke-dashoffset: 0 !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-/* Stack mark/word/sub vertically with consistent gap, like a poster */
+.loader__path { animation: none !important; stroke-dashoffset: 0 !important; }
+.loader__subRule { animation: none !important; width: 28px; }
+.loader__progressRow { animation: none !important; }
+
+.loader__mark.is-act-shown,
+.loader__word.is-act-shown,
+.loader__sub.is-act-shown {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.loader__sub.is-act-shown { opacity: 0.85; }
+.loader__word.is-act-shown {
+  text-shadow:
+    0 0 20px color-mix(in srgb, var(--ink) 24%, transparent),
+    0 0 56px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Stack content as poster, centered cleanly */
 .loader__content {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 1.2rem !important;
-}
-
-/* When .is-act-shown applied — fire a CSS @keyframes animation that runs
-   from the hidden state to fully open, with the SAME aperture-from-center
-   reveal as the manifesto lines. forwards keeps it persisted. */
-.loader__mark.is-act-shown,
-.loader__word.is-act-shown,
-.loader__sub.is-act-shown {
-  animation: cinemaReveal 1.8s cubic-bezier(.22,.61,.36,1) both !important;
-}
-.loader__word.is-act-shown {
-  animation: cinemaRevealWord 1.8s cubic-bezier(.22,.61,.36,1) both !important;
-}
-.loader__sub.is-act-shown {
-  animation: cinemaRevealSub 1.8s cubic-bezier(.22,.61,.36,1) both !important;
-}
-@keyframes cinemaReveal {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(0, 18px, 0) scale(0.97);
-    clip-path: inset(0 50% 0 50%);
-    -webkit-clip-path: inset(0 50% 0 50%);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0) scale(1);
-    clip-path: inset(0 0 0 0);
-    -webkit-clip-path: inset(0 0 0 0);
-  }
-}
-@keyframes cinemaRevealWord {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(0, 18px, 0) scale(0.97);
-    clip-path: inset(0 50% 0 50%);
-    -webkit-clip-path: inset(0 50% 0 50%);
-    letter-spacing: 0.65em;
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0) scale(1);
-    clip-path: inset(0 0 0 0);
-    -webkit-clip-path: inset(0 0 0 0);
-    letter-spacing: 0.32em;
-  }
-}
-@keyframes cinemaRevealSub {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translate3d(0, 18px, 0) scale(0.97);
-    clip-path: inset(0 50% 0 50%);
-    -webkit-clip-path: inset(0 50% 0 50%);
-    letter-spacing: 0.75em;
-  }
-  100% {
-    opacity: 0.92;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0) scale(1);
-    clip-path: inset(0 0 0 0);
-    -webkit-clip-path: inset(0 0 0 0);
-    letter-spacing: 0.45em;
-  }
-}
-body.is-loading-act .loader__word {
-  letter-spacing: 0.65em;
-}
-body.is-loading-act .loader__sub {
-  letter-spacing: 0.75em;
-}
-/* Final state — applied via .is-act-shown class, persists even after
-   body.is-loading-act is removed (so logo stays visible during flash). */
-.loader__mark.is-act-shown,
-.loader__word.is-act-shown,
-.loader__sub.is-act-shown {
-  opacity: 1 !important;
-  filter: blur(0) !important;
-  transform: translate3d(0, 0, 0) scale(1) !important;
-  clip-path: inset(0 0 0 0) !important;
-  -webkit-clip-path: inset(0 0 0 0) !important;
+  gap: 1rem !important;
 }
 .loader__word.is-act-shown {
   letter-spacing: 0.32em !important;

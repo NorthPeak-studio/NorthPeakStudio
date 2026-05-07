@@ -273,41 +273,31 @@
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
 
-        // === ACT II.a — letterbox slides in, logo block staged reveal ===
         document.body.classList.add('is-loading-act');
 
         const mark = loader.querySelector('.loader__mark');
         const word = loader.querySelector('.loader__word');
         const sub = loader.querySelector('.loader__sub');
-
-        // Staggered logo entry — IDENTICAL pacing to manifesto lines below.
-        // Force a reflow on each element BEFORE adding the trigger class so
-        // the animation always starts from the hidden state (some browsers
-        // skip the keyframe if class is added in same frame as initial paint).
-        const showAfter = (el, delay) => {
-          if (!el) return;
-          setTimeout(() => {
-            // Force reflow — guarantees animation runs from 0%
-            void el.offsetWidth;
-            el.classList.add('is-act-shown');
-          }, delay);
-        };
-        showAfter(mark, 700);
-        showAfter(word, 1400);
-        showAfter(sub, 2100);
-
-        // === ACT II.c — manifesto lines stagger after logo lands ===
         const lines = Array.from(loader.querySelectorAll('.loader__actLine'));
-        const LINE_GAP = 850;
-        const LINES_BASE = 3400; // start AFTER sub lands (sub 2100 + 1.6s = 3700; overlap)
+
+        const show = (el, delay) => {
+          if (!el) return;
+          setTimeout(() => el.classList.add('is-act-shown'), delay);
+        };
+
+        // TIGHT TIMELINE — feels confident, ~5s total
+        show(mark, 200);
+        show(word, 450);
+        show(sub, 750);
+
+        const LINE_GAP = 450;
+        const LINES_BASE = 1400;
         lines.forEach((line, i) => {
           setTimeout(() => line.classList.add('is-shown'), LINES_BASE + i * LINE_GAP);
         });
 
-        // Total Act II ≈ LINES_BASE + lines × GAP + line anim + linger
-        const ACT_II_END = LINES_BASE + lines.length * LINE_GAP + 1600;
-
-        // === ACT III — decisive white flash + dissolve ===
+        // After last line lands, hold ~700ms then flash
+        const ACT_II_END = LINES_BASE + lines.length * LINE_GAP + 700;
         setTimeout(() => triggerFlashAndExit(), ACT_II_END);
       };
 
